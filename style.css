@@ -165,7 +165,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 1.15rem; /* ≈ 24px @ 1920px viewport */
-  line-height: 1.4;
+  line-height: calc(27 / 25); /* 27pt leading on 25pt — ≈ 1.08 */
   padding: var(--pad);
   overflow-y: auto;
   visibility: hidden;
