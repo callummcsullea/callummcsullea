@@ -179,9 +179,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .info-close {
   position: fixed;
-  top: var(--pad);
-  right: var(--pad);
-  font-family: var(--serif);
+  top: calc(var(--pad) * 0.75);
   font-weight: 400;
   font-size: 1.15rem;
   color: var(--ink);
