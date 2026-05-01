@@ -215,14 +215,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Phone-only layout overrides ---------- */
 @media (max-width: 750px) {
-  :root {
-    --big: 12vh;
-    /* Override card sizing so cards become width-based on phones,
-       and stop the 100vh constraint from squeezing them. */
-  }
-  .card { width: 78vw; height: calc(78vw * 2 / 3); }
+  :root { --big: 12vh; }
   .home { height: auto; min-height: 100vh; }
-  .card__header { gap: 0.3em 2em; }
   .info-toggle, .info-close { font-size: 1.55rem; }
   .info__list {
     grid-template-columns: 1fr;
