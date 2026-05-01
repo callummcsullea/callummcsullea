@@ -96,10 +96,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex;
 }
 
-/* Top card — 33pt date, upper-left, 5.349mm = 15px padding */
+/* Top card — 33pt date, centred */
 .card--date {
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   padding: 15px;
 }
 .card--date .date {
@@ -112,12 +112,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   white-space: nowrap;
 }
 
-/* Bottom card — 11pt / 18.5pt leading, 8 lines */
+/* Bottom card — 11pt / 18.5pt leading, centred */
 .card--info {
   flex-direction: column;
   justify-content: space-between;
-  text-align: left;
-  padding: 15px 15px 19px;     /* 5.349mm top, 6.766mm bottom */
+  text-align: center;
+  padding: 15px 15px 19px;
 }
 .card__header,
 .card__footer {
@@ -130,7 +130,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .card__header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: baseline;
   gap: 0 3em;
   flex-wrap: wrap;
@@ -138,7 +138,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card__footer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 0;
 }
 
