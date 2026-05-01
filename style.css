@@ -239,14 +239,21 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
-  /* Each card: fixed 340×227px, rotated -90deg and centred in viewport.
-     After rotation width↔height swap, so translate accounts for that. */
+  /* Each card: fixed 340×227px, rotated -90deg, scaled to fill screen.
+     After rotation, card's 227px width = short screen dimension.
+     Scale so 227px → 85vw: scale = 85vw / 227px              */
   .card {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(-90deg) scale(calc(85vw / 227px));
     transition: none;
+  }
+
+  /* Disable hyperlinks on card on mobile — just display as text */
+  .card--info a {
+    pointer-events: none;
+    text-decoration: none;
   }
 
   /* Default: show date card, hide info card */
