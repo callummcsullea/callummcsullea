@@ -197,7 +197,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info__list {
   margin: 0 0 2em;
   display: grid;
-  grid-template-columns: 9em 1fr;
+  grid-template-columns: max-content 1fr;
   row-gap: 1.6em;
   column-gap: var(--pad);
 }
@@ -245,6 +245,5 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
   .info__list dt {
     margin-top: 1.2em;
-    font-style: italic;
   }
 }
