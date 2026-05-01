@@ -216,13 +216,44 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ---------- Phone-only layout overrides ---------- */
 @media (max-width: 750px) {
   :root { --big: 12vh; }
-  .home { height: auto; min-height: 100vh; }
+
   .info-toggle, .info-close { font-size: 1.55rem; }
   .info__list {
     grid-template-columns: 1fr;
     row-gap: 0.4em;
   }
-  .info__list dt {
-    margin-top: 1.2em;
+  .info__list dt { margin-top: 1.2em; }
+
+  /* Home fills full viewport, no scroll */
+  .home {
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
   }
+
+  /* Cards stack as a fullscreen tap target */
+  .cards {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    cursor: pointer;
+  }
+
+  /* Each card: fixed 340×227px, rotated -90deg and centred in viewport.
+     After rotation width↔height swap, so translate accounts for that. */
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transition: none;
+  }
+
+  /* Default: show date card, hide info card */
+  .card--date  { opacity: 1; pointer-events: auto; }
+  .card--info  { opacity: 0; pointer-events: none; }
+
+  /* Flipped: show info card, hide date card */
+  .cards--flipped .card--date { opacity: 0; pointer-events: none; }
+  .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
 }
