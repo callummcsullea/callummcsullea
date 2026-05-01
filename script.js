@@ -44,8 +44,18 @@ function scheduleMidnightTick() {
   }, ms);
 }
 
+// Mobile card tap — toggle between date card and info card
+function bindCardFlip() {
+  const cards = document.querySelector(".cards");
+  if (!cards) return;
+  cards.addEventListener("click", () => {
+    cards.classList.toggle("cards--flipped");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderDate();
   bindInfo();
+  bindCardFlip();
   scheduleMidnightTick();
 });
