@@ -8,24 +8,14 @@
   --serif: "Times", "Times New Roman", serif;
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  --track: 0.06em; /* InDesign tracking 60 (units are 1/1000 em) */
+  --track: 0.12em; /* InDesign tracking 120 (units are 1/1000 em) */
 
   /* Site padding (matches Ziga Testen, ~20px @ 1500px viewport) */
   --pad: 1.2rem;
 
-  /* ---- Vertical rhythm ----
-     The home page fits exactly in 100vh.
-     Layout: big · card · gap · card · big   where gap = big / 3.
-       => 100vh = 2*big + 2*cardH + gap
-       => cardH = (100vh − 7·big/3) / 2
-     Cards are 3:2 → cardW = cardH * 3 / 2.
-     Change --big to retune; everything else follows.
-     --big condenses with viewport height but never drops below 1.5× gap (= 1.5 × big/3 = big/2),
-     so min --big = 9vh ensures padding ≥ 1.5× gap at all times. */
+  /* Gap between cards = 1/3 of top/bottom padding */
   --big: 18vh; /* condenses at smaller heights via @media below */
   --gap: calc(var(--big) / 3);
-  --card-h: calc((100vh - 7 * var(--big) / 3) / 2);
-  --card-w: calc(var(--card-h) * 3 / 2);
 }
 
 /* ---------- Reset ---------- */
@@ -97,62 +87,64 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: var(--gap);
 }
 
-/* Each card establishes a containment context so its text scales with its size. */
+/* Each card is fixed at 90×60mm = 255.1181×170.0787pt.
+   1pt = 1/72 inch = 0.3528mm → 255.1181pt ≈ 340.16px, 170.0787pt ≈ 226.77px at 96dpi.
+   Using px directly so size never changes. */
 .card {
-  width: var(--card-w);
-  height: var(--card-h);
+  width: 340px;
+  height: 227px;
   background: var(--card);
   position: relative;
   display: flex;
   container-type: inline-size;
 
-  /* Card body text is 4% of card width; date is exactly 3x that. */
   --card-text: 4cqi;
   --card-text-lg: calc(var(--card-text) * 3);
 }
 
-/* Top card — date */
+/* Top card — date, upper-left */
 .card--date {
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 11% 8%;
 }
 .card--date .date {
   font-family: var(--sans);
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--card-text-lg);
-  letter-spacing: var(--track);
+  letter-spacing: 0.12em;
   line-height: 1;
   color: var(--coral);
   white-space: nowrap;
 }
 
-/* Bottom card — name / discipline / contact */
+/* Bottom card — name/discipline upper-left, contact lower-left */
 .card--info {
   flex-direction: column;
   justify-content: space-between;
-  text-align: center;
-  padding: 13% 5% 11%;
+  text-align: left;
+  padding: 11% 8%;
 }
 .card__header,
 .card__footer {
   font-family: var(--sans);
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--card-text);
-  letter-spacing: var(--track);
+  letter-spacing: 0.12em;
   line-height: 1.2;
   color: var(--coral);
 }
 .card__header {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: baseline;
-  gap: 0.4em 3em;   /* row-gap, column-gap (gracefully wraps if too narrow) */
+  gap: 0.4em 3em;
   flex-wrap: wrap;
 }
 .card__footer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.4em;
 }
 
@@ -233,9 +225,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     --big: 12vh;
     /* Override card sizing so cards become width-based on phones,
        and stop the 100vh constraint from squeezing them. */
-    --card-w: 78vw;
-    --card-h: calc(var(--card-w) * 2 / 3); /* 3:2 from width */
   }
+  .card { width: 78vw; height: calc(78vw * 2 / 3); }
   .home { height: auto; min-height: 100vh; }
   .card__header { gap: 0.3em 2em; }
   .info-toggle, .info-close { font-size: 1.55rem; }
