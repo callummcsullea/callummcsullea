@@ -83,6 +83,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info-toggle {
   position: absolute;
   top: calc(var(--pad) * 0.75);
+  left: var(--pad);
+  font-family: var(--serif);
   font-weight: 400;
   font-size: 1.15rem;
   color: var(--ink);
