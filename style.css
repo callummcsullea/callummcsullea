@@ -87,65 +87,59 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: var(--gap);
 }
 
-/* Each card is fixed at 90×60mm = 255.1181×170.0787pt.
-   1pt = 1/72 inch = 0.3528mm → 255.1181pt ≈ 340.16px, 170.0787pt ≈ 226.77px at 96dpi.
-   Using px directly so size never changes. */
+/* Cards fixed at 90×60mm. 1pt = 1.3333px at 96dpi. */
 .card {
   width: 340px;
   height: 227px;
   background: var(--card);
   position: relative;
   display: flex;
-  container-type: inline-size;
-
-  --card-text: 4cqi;
-  --card-text-lg: calc(var(--card-text) * 3);
 }
 
-/* Top card — date, upper-left */
+/* Top card — 33pt date, upper-left, 5.349mm = 15px padding */
 .card--date {
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 11% 8%;
+  padding: 15px;
 }
 .card--date .date {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: var(--card-text-lg);
+  font-size: 44px;             /* 33pt */
   letter-spacing: 0.12em;
   line-height: 1;
   color: var(--coral);
   white-space: nowrap;
 }
 
-/* Bottom card — name/discipline upper-left, contact lower-left */
+/* Bottom card — 11pt / 18.5pt leading, 8 lines */
 .card--info {
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
-  padding: 11% 8%;
+  padding: 15px 15px 19px;     /* 5.349mm top, 6.766mm bottom */
 }
 .card__header,
 .card__footer {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: var(--card-text);
+  font-size: 14.667px;         /* 11pt */
   letter-spacing: 0.12em;
-  line-height: 1.2;
+  line-height: calc(18.5 / 11);
   color: var(--coral);
 }
 .card__header {
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
-  gap: 0.4em 3em;
+  gap: 0 3em;
   flex-wrap: wrap;
 }
 .card__footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.4em;
+  gap: 0;
 }
 
 /* ---------- Information overlay ---------- */
