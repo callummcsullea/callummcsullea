@@ -5,23 +5,25 @@
   --ink: #111;
   --coral: #e87461;
 
-  --serif: "Times", "Times New Roman", serif;
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  --track: 0.12em; /* InDesign tracking 120 (units are 1/1000 em) */
+  --track: 0.12em; /* InDesign tracking 120 */
 
-  /* Site padding (matches Ziga Testen, ~20px @ 1500px viewport) */
+  /* Site padding */
   --pad: 1.2rem;
 
-  /* Gap between cards = 1/3 of top/bottom padding */
-  --big: 18vh; /* condenses at smaller heights via @media below */
+  /* Vertical rhythm */
+  --big: 18vh;
   --gap: calc(var(--big) / 3);
+
+  /* Unified type: 11pt size, 32/26 leading ratio */
+  --text-size: 14.667px;
+  --text-leading: calc(32 / 26);
 }
 
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; }
 
-/* Fluid root (Ziga Testen's trick): all rem-based sizing scales with viewport width. */
 html {
   font-size: 1.0666666667vw;
   width: 100%;
@@ -44,15 +46,12 @@ body {
   background: var(--bg);
   color: var(--coral);
   font-family: var(--sans);
-  font-weight: 500; /* Helvetica Neue Medium */
-  font-size: 1.15rem; /* ≈ 24px @ 1920px viewport */
-  line-height: 1.3;
+  font-weight: 400;
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  letter-spacing: var(--track);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media only screen and (max-width: 750px) {
-  body { font-size: 1.55rem; }
 }
 
 a { color: inherit; text-decoration: none; }
@@ -61,7 +60,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ---------- Home ---------- */
 .home {
   position: relative;
-  height: 100vh;          /* exact, no scroll */
+  height: 100vh;
   padding: var(--big) var(--pad);
   display: flex;
   flex-direction: column;
@@ -74,11 +73,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   position: fixed;
   top: calc(var(--pad) * 0.75);
   left: var(--pad);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 400;
-  font-size: 1.15rem;
+  font-size: var(--text-size);
   color: var(--ink);
   letter-spacing: 0;
+  line-height: var(--text-leading);
 }
 
 .cards {
@@ -87,7 +87,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: var(--gap);
 }
 
-/* Cards fixed at 90×60mm. 1pt = 1.3333px at 96dpi. */
+/* Cards fixed at 90x60mm. 1pt = 1.3333px at 96dpi. */
 .card {
   width: 340px;
   height: 227px;
@@ -105,7 +105,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card--date .date {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 44px;             /* 33pt */
+  font-size: 44px;
   letter-spacing: 0.12em;
   line-height: 1;
   color: var(--coral);
@@ -123,7 +123,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card__footer {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 14.667px;         /* 11pt */
+  font-size: 14.667px;
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
   color: var(--coral);
@@ -148,10 +148,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   inset: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 400;
-  font-size: 1.15rem; /* ≈ 24px @ 1920px viewport */
-  line-height: calc(27 / 25); /* 27pt leading on 25pt — ≈ 1.08 */
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  letter-spacing: 0;
   padding: calc(var(--pad) * 0.75) var(--pad);
   overflow-y: auto;
   visibility: hidden;
@@ -167,10 +168,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   position: fixed;
   top: calc(var(--pad) * 0.75);
   right: var(--pad);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 400;
-  font-size: 1.15rem;
+  font-size: var(--text-size);
   color: var(--ink);
+  letter-spacing: 0;
+  line-height: var(--text-leading);
   z-index: 11;
 }
 
@@ -193,45 +196,32 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .info__privacy p { margin: 0 0 1em; }
 
-/* ---------- Condense vertical padding as viewport height shrinks ----------
-   Minimum --big is always ≥ 1.5× gap (gap = big/3), so floor = 9vh.
-   Each step scales proportionally to keep the layout balanced.          */
-@media (max-height: 800px) {
-  :root { --big: 15vh; }
-}
-@media (max-height: 650px) {
-  :root { --big: 12vh; }
-}
-@media (max-height: 520px) {
-  :root { --big: 9vh; } /* floor: 9vh = 1.5× gap at this size */
-}
+/* ---------- Condense vertical padding as viewport height shrinks ---------- */
+@media (max-height: 800px) { :root { --big: 15vh; } }
+@media (max-height: 650px) { :root { --big: 12vh; } }
+@media (max-height: 520px) { :root { --big: 9vh; } }
 
-/* ---------- Tablet / mobile: info copy goes full width ---------- */
+/* ---------- Tablet: info copy goes full width ---------- */
 @media (max-width: 1024px) {
-  .info__inner {
-    max-width: 100vw;
-  }
+  .info__inner { max-width: 100vw; }
 }
 
 /* ---------- Phone-only layout overrides ---------- */
 @media (max-width: 750px) {
   :root { --big: 12vh; }
 
-  .info-toggle, .info-close { font-size: 1.55rem; }
   .info__list {
     grid-template-columns: 1fr;
     row-gap: 0.4em;
   }
   .info__list dt { margin-top: 1.2em; }
 
-  /* Home fills full viewport, no scroll */
   .home {
     height: 100vh;
     padding: 0;
     overflow: hidden;
   }
 
-  /* Cards stack as a fullscreen tap target */
   .cards {
     position: relative;
     width: 100vw;
@@ -239,28 +229,24 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
-  /* Each card: fixed 340×227px, rotated -90deg, scaled to fill screen.
-     After rotation, card's 227px width = short screen dimension.
-     Scale so 227px → 85vw: scale = 85vw / 227px              */
+  /* Rotated 90deg CCW. Scale so 227px short side fits vw but never exceeds physical size. */
   .card {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg) scale(calc(85vw / 227px));
+    transform: translate(-50%, -50%) rotate(-90deg) scale(min(calc(100vw / 227px), 1));
+    transform-origin: center center;
     transition: none;
   }
 
-  /* Disable hyperlinks on card on mobile — just display as text */
   .card--info a {
     pointer-events: none;
     text-decoration: none;
   }
 
-  /* Default: show date card, hide info card */
   .card--date  { opacity: 1; pointer-events: auto; }
   .card--info  { opacity: 0; pointer-events: none; }
 
-  /* Flipped: show info card, hide date card */
   .cards--flipped .card--date { opacity: 0; pointer-events: none; }
   .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
 }
