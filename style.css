@@ -160,11 +160,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   margin: 0;
 }
 
-/* Copyright on info page — fixed bottom, full white */
+/* Copyright on info page — flows naturally, full white */
 .info .copyright {
-  position: fixed;
-  bottom: calc(var(--pad) * 0.75);
-  left: var(--pad);
   color: #fff;
   margin: 0;
 }
@@ -181,7 +178,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   letter-spacing: var(--track);
   padding: calc(var(--pad) * 0.75) var(--pad);
   overflow-y: auto;
-  visibility: hidden;
   opacity: 0;
   z-index: 10;
 }
