@@ -14,7 +14,7 @@
 
   /* Vertical rhythm */
   --big: 18vh;
-  --gap: calc(var(--big) / 3);
+  --gap: 56.75px;
 
   /* Unified type: 11pt size, 32/26 leading ratio */
   --text-size: 14.667px;
@@ -78,6 +78,28 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex;
   flex-direction: column;
   gap: var(--gap);
+}
+
+/* ---------- Short viewport — toggle cards like mobile ---------- */
+@media (max-height: 510px) {
+  .cards {
+    position: relative;
+    width: 340px;
+    height: 227px;
+    cursor: pointer;
+  }
+
+  .card {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .card--date  { opacity: 1; pointer-events: auto; }
+  .card--info  { opacity: 0; pointer-events: none; }
+
+  .cards--flipped .card--date { opacity: 0; pointer-events: none; }
+  .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
 }
 
 /* Cards fixed at 90x60mm. 1pt = 1.3333px at 96dpi. */
@@ -236,7 +258,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info__privacy p { margin: 0 0 calc(var(--text-leading) * 1em); }
 
 /* ---------- Phone-only layout overrides ---------- */
-@media (max-width: 430px) {
+@media (max-width: 430px) and (orientation: portrait) {
   :root {
     --big: 12vh;
     /* Text size matches card body text at its scaled size:
