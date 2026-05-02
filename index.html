@@ -1,62 +1,84 @@
-// Live date in the top card: "D M YY" (no leading zeros)
-function renderDate() {
-  const el = document.getElementById("date");
-  if (!el) return;
-  const now = new Date();
-  const d = now.getDate();
-  const m = now.getMonth() + 1;
-  const y = String(now.getFullYear()).slice(-2);
-  el.textContent = `${d} ${m} ${y}`;
-  el.style.visibility = "visible";
-}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Callum McSullea — Graphic Design</title>
+  <meta name="description" content="Callum McSullea, graphic designer." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Home view -->
+  <main class="home" id="home">
+    <button class="info-toggle" id="open-info" aria-label="Open information">Information</button>
 
-// Information overlay open/close
-function bindInfo() {
-  const info = document.getElementById("info");
-  const open = document.getElementById("open-info");
-  const close = document.getElementById("close-info");
-  if (!info || !open || !close) return;
+    <section class="cards" aria-label="Business card">
+      <article class="card card--date">
+        <span class="date" id="date" aria-label="Today's date" style="visibility:hidden">1 5 26</span>
+      </article>
 
-  const setOpen = (isOpen) => {
-    info.setAttribute("aria-hidden", isOpen ? "false" : "true");
-    document.body.style.overflow = isOpen ? "auto" : "";
-  };
+      <article class="card card--info">
+        <header class="card__header">
+          <span>callum mcsullea&nbsp;&nbsp;&nbsp;&nbsp;graphic design</span>
+        </header>
+        <div class="card__spacer"></div>
+        <footer class="card__footer">
+          <a href="tel:+61423082591">+61 423 082 591</a>
+          <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>
+        </footer>
+      </article>
+    </section>
 
-  open.addEventListener("click", () => setOpen(true));
-  close.addEventListener("click", () => setOpen(false));
+  </main>
 
-  // Esc closes the overlay
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && info.getAttribute("aria-hidden") === "false") {
-      setOpen(false);
-    }
-  });
-}
+  <!-- Information overlay -->
+  <aside class="info" id="info" aria-hidden="true" aria-labelledby="info-title">
+    <button class="info-close" id="close-info" aria-label="Close information">Close</button>
 
-// Tick at midnight so the date stays current on long-open tabs
-function scheduleMidnightTick() {
-  const now = new Date();
-  const next = new Date(now);
-  next.setHours(24, 0, 1, 0); // 00:00:01 tomorrow
-  const ms = next - now;
-  setTimeout(() => {
-    renderDate();
-    scheduleMidnightTick();
-  }, ms);
-}
+    <div class="info__inner">
+      <p class="info__lede" id="info-title">
+        Callum McSullea<br />
+        <a href="tel:+61423082591">+61 423 082 591</a><br />
+        <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a><br />
+        <a href="https://instagram.com/ca__um" target="_blank" rel="noopener">@ca__um</a>
+      </p>
 
-// Mobile card tap — toggle between date card and info card
-function bindCardFlip() {
-  const cards = document.querySelector(".cards");
-  if (!cards) return;
-  cards.addEventListener("click", (e) => {
-    cards.classList.toggle("cards--flipped");
-  });
-}
+      <p class="info__lede">
+        Callum McSullea is a creative direction studio based in London, founded by Christopher Lawson. It specialises in world building for local and international clients. To discuss a potential project, please email <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>.
+      </p>
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderDate();
-  bindInfo();
-  bindCardFlip();
-  scheduleMidnightTick();
-});
+      <p>Services<br />
+        Publications<br />
+        Digital Design<br />
+        Identity<br />
+        Photography<br />
+        Printed Matter<br />
+        Websites</p>
+
+      <p>Education<br />
+        University of Technology Sydney<br />
+        Bachelor of Design in Visual Communication<br />
+        2024</p>
+
+      <p>Experience<br />
+        M35<br />
+        Graphic Designer<br />
+        2021–2026</p>
+
+      <section class="info__privacy">
+        <p>Privacy Policy: The Australian Privacy Principles (APPs) contained in the Privacy Act 1988 (Cth) govern the way in which Personal Information is collected, used, disclosed, stored, secured and disposed of. A copy of the Australian Privacy Principles may be obtained from the website of The Office of the Australian Information Commissioner at <a href="https://www.oaic.gov.au/" target="_blank" rel="noopener">www.oaic.gov.au</a>.<br />
+        What is Personal Information and why do we collect it: Personal Information is information or an opinion that identifies an individual. Examples of Personal Information collected include names, email addresses, and phone numbers. This Personal Information is obtained through correspondence and email. Personal Information is collected for the primary purpose of providing graphic design services and responding to enquiries. It will not be used for marketing or shared with third parties.<br />
+        Disclosure of Personal Information: Personal Information will not be disclosed to third parties except where required or authorised by law.<br />
+        Security of Personal Information: Personal Information is stored in a manner that reasonably protects it from misuse, loss, and unauthorised access, modification or disclosure. When Personal Information is no longer needed for the purpose for which it was obtained, reasonable steps will be taken to destroy or permanently de-identify it.<br />
+        Website Analytics: This website uses Vercel Analytics to understand how visitors use the site. Vercel Analytics does not use cookies, does not track you across websites, and does not collect personally identifiable information. Data collected is aggregated and anonymous and includes pages visited, referring URL, general device information, and country-level location derived from IP address (which is not stored). For more information, see <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel&#x2019;s Privacy Policy</a>.<br />
+        Access to your Personal Information: You may access the Personal Information held about you and request that it be updated or corrected. To request access, please contact <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>.<br />
+        Policy Updates: This policy may change from time to time and is available on this website.<br />
+        Complaints and Enquiries: If you have any queries or complaints about this Privacy Policy please contact us at <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>.</p>
+        <p class="copyright">&#169; Callum McSullea 2026</p>
+      </section>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
