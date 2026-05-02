@@ -78,6 +78,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: var(--text-size);
   color: var(--ink);
   letter-spacing: var(--track);
+  line-height: var(--text-leading);
+}
+
+.cards {
   display: flex;
   flex-direction: column;
   gap: var(--gap);
