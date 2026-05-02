@@ -98,7 +98,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex;
 }
 
-/* Top card â€” 33pt date, centred */
+/* Top card — 33pt date, centred */
 .card--date {
   align-items: center;
   justify-content: center;
@@ -114,6 +114,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   mix-blend-mode: multiply;
   opacity: 0.8;
   text-shadow: 0 0 1px #ff0c00;
+}
+
+/* Bottom card — 11pt / 18.5pt leading, centred */
 .card--info {
   flex-direction: column;
   justify-content: space-between;
@@ -147,7 +150,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: 0;
 }
 
-/* Copyright â€” fixed bottom-left on home */
+/* Copyright — fixed bottom-left on home */
 .home .copyright {
   position: fixed;
   bottom: var(--pad);
@@ -161,14 +164,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   margin: 0;
 }
 
-/* Copyright on info page â€” full white */
+/* Copyright on info page — full white */
 .info .copyright {
   color: #fff;
 }
+/* ---------- Information overlay ---------- */
 .info {
-  position: fixed;
-  inset: 0;
-  background: #000;
   color: #fff;
   font-family: var(--sans);
   font-weight: 400;
@@ -213,7 +214,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-height: 650px) { :root { --big: 12vh; } }
 @media (max-height: 520px) { :root { --big: 9vh; } }
 
-/* ---------- ~960â€“1280px: info copy expands to 50% ---------- */
+/* ---------- ~960–1280px: info copy expands to 50% ---------- */
 @media (max-width: 1280px) {
   .info__inner { max-width: 50%; }
 }
@@ -241,7 +242,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   :root {
     --big: 12vh;
     /* Text size matches card body text at its scaled size:
-       14.667px Ã— (100vw - 32px) / 227px */
+       14.667px × (100vw - 32px) / 227px */
     --text-size: calc(14.667px * (100vw - 32px) / 227px * 3 / 4);
   }
 
