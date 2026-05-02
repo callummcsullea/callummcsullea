@@ -112,6 +112,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   line-height: 1;
   color: var(--coral);
   white-space: nowrap;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+  filter: blur(0.5px);
 }
 
 /* Bottom card — 11pt / 18.5pt leading, centred */
@@ -129,6 +132,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
   color: var(--coral);
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+  filter: blur(0.5px);
 }
 .card__header {
   display: flex;
