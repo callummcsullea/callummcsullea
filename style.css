@@ -205,18 +205,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info__inner p { margin: 0 0 calc(var(--text-leading) * 1em); }
 
 .info__inner {
-  max-width: 33.333%;
+  max-width: 65ch;
 }
 
 /* ---------- Condense vertical padding as viewport height shrinks ---------- */
 @media (max-height: 800px) { :root { --big: 15vh; } }
 @media (max-height: 650px) { :root { --big: 12vh; } }
 @media (max-height: 520px) { :root { --big: 9vh; } }
-
-/* ---------- ~960–1280px: info copy expands to 50% ---------- */
-@media (max-width: 1280px) {
-  .info__inner { max-width: 50%; }
-}
 
 /* ---------- Tablet: info copy goes full width ---------- */
 @media (max-width: 800px) {
