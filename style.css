@@ -35,7 +35,7 @@ html {
 @media only screen and (max-width: 900px) and (orientation: portrait) {
   html { font-size: 10px; }
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 430px) {
   html { font-size: 3.2vw; }
 }
 
@@ -209,7 +209,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ---------- Phone-only layout overrides ---------- */
-@media (max-width: 500px) {
+@media (max-width: 430px) {
   :root { --big: 12vh; }
 
   .info__list {
@@ -240,12 +240,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
-  /* Physical size; only scale down if screen is narrower than card + padding */
+  /* Always scale to fill screen width minus site padding each side */
   .card {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg) scale(min(1, calc((100vw - 32px) / 227px)));
+    transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px));
     transform-origin: center center;
     transition: none;
   }
