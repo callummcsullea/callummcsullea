@@ -253,6 +253,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
   .info__list dd { margin-bottom: 1em; }
 
+  .info, .info p, .info__lede, .info__inner {
+    font-size: var(--text-size);
+  }
   .info {
     padding: 16px !important;
   }
