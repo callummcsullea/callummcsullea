@@ -7,16 +7,12 @@
 
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  --track: 0.12em; /* InDesign tracking 120 */
-
-  /* Site padding */
+  --track: 0.12em;
   --pad: 16px;
 
-  /* Vertical rhythm */
   --big: 18vh;
   --gap: 56.75px;
 
-  /* Unified type: 11pt size, 32/26 leading ratio */
   --text-size: 14.667px;
   --text-leading: calc(32 / 26);
 }
@@ -71,6 +67,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: var(--ink);
   letter-spacing: var(--track);
   line-height: var(--text-leading);
+  z-index: 5;
+  padding: 0.8em 1em 0.8em 0;
+  margin: -0.8em -1em -0.8em 0;
   -webkit-text-stroke: 0.1px var(--ink);
 }
 
@@ -104,9 +103,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   letter-spacing: 0.12em;
   line-height: 1;
   color: #f2180a;
+  white-space: nowrap;
   mix-blend-mode: multiply;
   opacity: 0.75;
-  text-shadow: 0 0 1.2px #f2180a;
+  text-shadow: 0 0 1px #f2180a;
   -webkit-text-stroke: 0.08px #f2180a;
 }
 
@@ -138,7 +138,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   flex-wrap: nowrap;
   white-space: nowrap;
 }
-.card__spacer { display: none; }
+.card__spacer { flex: 1; }
 .card__footer {
   display: flex;
   flex-direction: column;
@@ -169,6 +169,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #fff;
   margin: 0;
 }
+
 /* ---------- Information overlay ---------- */
 .info {
   position: fixed;
@@ -205,22 +206,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   z-index: 11;
 }
 
-.info__lede { margin: 0 0 calc(var(--text-leading) * 1em); }
-
-.info__inner p { margin: 0 0 calc(var(--text-leading) * 1em); }
-
 .info__inner {
   max-width: 65ch;
 }
 
-/* ---------- Condense vertical padding as viewport height shrinks ---------- */
-@media (max-height: 800px) { :root { --big: 15vh; } }
-@media (max-height: 650px) { :root { --big: 12vh; } }
-@media (max-height: 520px) { :root { --big: 9vh; } }
+.info__lede { margin: 0 0 calc(var(--text-leading) * 1em); }
 
-/* ---------- Tablet: info copy goes full width ---------- */
-@media (max-width: 800px) {
-}
+.info__inner p { margin: 0 0 calc(var(--text-leading) * 1em); }
 
 .info__list {
   margin: 0 0 2em;
@@ -235,12 +227,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .info__privacy p { margin: 0 0 calc(var(--text-leading) * 1em); }
 
+/* ---------- Condense vertical padding as viewport height shrinks ---------- */
+@media (max-height: 800px) { :root { --big: 15vh; } }
+@media (max-height: 650px) { :root { --big: 12vh; } }
+@media (max-height: 520px) { :root { --big: 9vh; } }
+
 /* ---------- Phone-only layout overrides ---------- */
 @media (max-width: 430px) and (orientation: portrait) {
   :root {
     --big: 12vh;
-    /* Text size matches card body text at its scaled size:
-       14.667px × (100vw - 32px) / 227px */
     --text-size: calc(14.667px * (100vw - 32px) / 227px * 3 / 4);
   }
 
@@ -248,9 +243,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     grid-template-columns: 1fr;
     row-gap: 0;
   }
-  .info__list dt {
-    margin-top: var(--text-leading, 1.2308em);
-  }
+  .info__list dt { margin-top: var(--text-leading, 1.2308em); }
   .info__list dd { margin-bottom: 1em; }
 
   .info, .info p, .info__lede, .info__inner {
@@ -279,15 +272,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     position: relative;
     width: 100vw;
     height: 100vh;
-    cursor: pointer;
-    box-sizing: border-box;
     pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  /* Always scale to fill screen width minus site padding each side */
   .card {
     position: absolute;
     top: 50%;
