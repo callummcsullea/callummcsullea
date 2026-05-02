@@ -182,7 +182,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info__lede { margin: 0 0 2em; }
 
 .info__inner {
-  margin-left: 50vw;
   max-width: 50vw;
 }
 
