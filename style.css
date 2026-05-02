@@ -277,6 +277,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 100vw;
     height: 100vh;
     cursor: pointer;
+    padding-top: 48px; /* keep top clear for Information button */
+    box-sizing: border-box;
   }
 
   /* Always scale to fill screen width minus site padding each side */
