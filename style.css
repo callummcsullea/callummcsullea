@@ -106,7 +106,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card--date .date {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: calc(var(--text-size) * 3);
+  font-size: 44px;
   letter-spacing: 0.12em;
   line-height: 1;
   color: var(--coral);
@@ -124,7 +124,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card__footer {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: var(--text-size);
+  font-size: 14.667px;
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
   color: var(--coral);
