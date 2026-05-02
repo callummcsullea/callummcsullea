@@ -115,7 +115,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   flex-direction: column;
   justify-content: flex-start;
   text-align: center;
-  padding: 17.5px 15px 13.5px;
+  padding: 17.5px 15px 10.5px;
 }
 .card__header,
 .card__footer {
@@ -146,7 +146,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: 0;
   line-height: 24px;
   margin-top: auto;
-  margin-bottom: 13.5px;
+  margin-bottom: 10.5px;
   padding-top: 0;
 }
 
