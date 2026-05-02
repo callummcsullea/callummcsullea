@@ -112,7 +112,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #ff0c00;
   mix-blend-mode: multiply;
   opacity: 0.8;
-  text-shadow: 0 0 1px #ff0c00;
+  text-shadow: 0 0 1.2px #ff0c00;
   -webkit-text-stroke: 0.08px #ff0c00;
 }
 
