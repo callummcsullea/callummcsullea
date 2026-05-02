@@ -219,9 +219,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
   .info__list {
     grid-template-columns: 1fr;
-    row-gap: 0.4em;
+    row-gap: 0;
   }
-  .info__list dt { margin-top: 1.2em; }
+  .info__list dt {
+    margin-top: var(--text-leading, 1.2308em);
+  }
+  .info__list dd { margin-bottom: 0; }
 
   .info {
     padding: 16px !important;
