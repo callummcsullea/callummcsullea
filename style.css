@@ -113,7 +113,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #ff0c00;
   mix-blend-mode: multiply;
   opacity: 0.8;
-  filter: blur(0.005px);
+  filter: blur(0.0025px);
   -webkit-text-stroke: 0.3px #ff0c00;
 }
 
@@ -134,7 +134,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #ff0c00;
   mix-blend-mode: multiply;
   opacity: 0.8;
-  filter: blur(0.002px);
+  filter: blur(0.0008px);
   -webkit-text-stroke: 0.3px #ff0c00;
 }
 .card__header {
