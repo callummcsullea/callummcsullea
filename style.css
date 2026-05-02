@@ -77,11 +77,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-weight: 400;
   font-size: var(--text-size);
   color: var(--ink);
-  letter-spacing: 0;
-  line-height: var(--text-leading);
-}
-
-.cards {
+  letter-spacing: var(--track);
   display: flex;
   flex-direction: column;
   gap: var(--gap);
@@ -152,8 +148,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-weight: 400;
   font-size: var(--text-size);
   line-height: var(--text-leading);
-  letter-spacing: 0;
-  padding: calc(var(--pad) * 0.75) var(--pad);
+  letter-spacing: var(--track);
   overflow-y: auto;
   visibility: hidden;
   opacity: 0;
@@ -172,9 +167,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-weight: 400;
   font-size: var(--text-size);
   color: var(--ink);
-  letter-spacing: 0;
-  line-height: var(--text-leading);
-  z-index: 11;
+  letter-spacing: var(--track);
 }
 
 .info__inner {
