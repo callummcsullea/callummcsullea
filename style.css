@@ -153,6 +153,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: var(--text-size);
   line-height: var(--text-leading);
   letter-spacing: var(--track);
+  padding: calc(var(--pad) * 0.75) var(--pad);
   overflow-y: auto;
   visibility: hidden;
   opacity: 0;
@@ -214,13 +215,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .info__list dt { margin-top: 1.2em; }
 
   .info {
-    padding: 16px;
+    padding: 16px !important;
   }
   .info-toggle, .info-close {
-    top: 16px;
+    top: 16px !important;
   }
-  .info-toggle { left: 16px; }
-  .info-close  { right: 16px; }
+  .info-toggle { left: 16px !important; }
+  .info-close  { right: 16px !important; }
 
   .home {
     height: 100vh;
