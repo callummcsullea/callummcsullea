@@ -80,39 +80,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: var(--gap);
 }
 
-/* ---------- Short viewport — single card centred, toggle on click ---------- */
-@media (max-height: 510px) {
-  .home {
-    padding: 0;
-    overflow: hidden;
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cards {
-    position: relative;
-    width: 340px;
-    height: 227px;
-    cursor: pointer;
-    flex: none;
-  }
-
-  .card {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .card--date  { opacity: 1; pointer-events: auto; }
-  .card--info  { opacity: 0; pointer-events: none; }
-
-  .cards--flipped .card--date { opacity: 0; pointer-events: none; }
-  .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
-}
-
 /* Cards fixed at 90x60mm. 1pt = 1.3333px at 96dpi. */
 .card {
   width: 340px;
