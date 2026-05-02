@@ -1,62 +1,297 @@
-// Live date in the top card: "D M YY" (no leading zeros)
-function renderDate() {
-  const el = document.getElementById("date");
-  if (!el) return;
-  const now = new Date();
-  const d = now.getDate();
-  const m = now.getMonth() + 1;
-  const y = String(now.getFullYear()).slice(-2);
-  el.textContent = `${d} ${m} ${y}`;
-  el.style.visibility = "visible";
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #ffffff;
+  --card: #ececeb;
+  --ink: #111;
+  --coral: #e87461;
+
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --track: 0.12em; /* InDesign tracking 120 */
+
+  /* Site padding */
+  --pad: 16px;
+
+  /* Vertical rhythm */
+  --big: 18vh;
+  --gap: calc(var(--big) / 3);
+
+  /* Unified type: 11pt size, 32/26 leading ratio */
+  --text-size: 14.667px;
+  --text-leading: calc(32 / 26);
 }
 
-// Information overlay open/close
-function bindInfo() {
-  const info = document.getElementById("info");
-  const open = document.getElementById("open-info");
-  const close = document.getElementById("close-info");
-  if (!info || !open || !close) return;
+/* ---------- Reset ---------- */
+* { box-sizing: border-box; }
 
-  const setOpen = (isOpen) => {
-    info.setAttribute("aria-hidden", isOpen ? "false" : "true");
-    document.body.style.overflow = isOpen ? "auto" : "";
-  };
-
-  open.addEventListener("click", () => setOpen(true));
-  close.addEventListener("click", () => setOpen(false));
-
-  // Esc closes the overlay
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && info.getAttribute("aria-hidden") === "false") {
-      setOpen(false);
-    }
-  });
+html {
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
 }
 
-// Tick at midnight so the date stays current on long-open tabs
-function scheduleMidnightTick() {
-  const now = new Date();
-  const next = new Date(now);
-  next.setHours(24, 0, 1, 0); // 00:00:01 tomorrow
-  const ms = next - now;
-  setTimeout(() => {
-    renderDate();
-    scheduleMidnightTick();
-  }, ms);
+body {
+  margin: 0;
+  height: 100%;
+  overflow: auto;
+  background: var(--bg);
+  color: var(--coral);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  letter-spacing: var(--track);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-// Mobile card tap — toggle between date card and info card
-function bindCardFlip() {
-  const cards = document.querySelector(".cards");
-  if (!cards) return;
-  cards.addEventListener("click", () => {
-    cards.classList.toggle("cards--flipped");
-  });
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+/* ---------- Home ---------- */
+.home {
+  position: relative;
+  height: 100vh;
+  padding: var(--big) var(--pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderDate();
-  bindInfo();
-  bindCardFlip();
-  scheduleMidnightTick();
-});
+.info-toggle {
+  position: fixed;
+  top: calc(var(--pad) * 0.75);
+  left: var(--pad);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--text-size);
+  color: var(--ink);
+  letter-spacing: var(--track);
+  line-height: var(--text-leading);
+  -webkit-text-stroke: 1px var(--ink);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* Cards fixed at 90x60mm. 1pt = 1.3333px at 96dpi. */
+.card {
+  width: 340px;
+  height: 227px;
+  background: var(--card) url('/images/background.jpg') center / cover no-repeat;
+  box-shadow: 0px 1.5px 0.75px rgba(0, 0, 0, 0.15);
+  border-radius: 0.2px;
+  position: relative;
+  display: flex;
+}
+
+/* Top card — 33pt date, centred */
+.card--date {
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+.card--date .date {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 44px;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: #f2180a;
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+  text-shadow: 0 0 1.2px #f2180a;
+  -webkit-text-stroke: 0.08px #f2180a;
+}
+
+/* Bottom card — 11pt / 18.5pt leading, centred */
+.card--info {
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 16.2px 15px 19px;
+}
+.card__header,
+.card__footer {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 14.667px;
+  letter-spacing: 0.12em;
+  line-height: calc(18.5 / 11);
+  color: #f2180a;
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+  text-shadow: 0 0 0.9px #f2180a;
+  -webkit-text-stroke: 0.06px #f2180a;
+}
+.card__header {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0 3em;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.card__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Copyright — fixed bottom-left on home */
+.home .copyright {
+  position: fixed;
+  bottom: var(--pad);
+  left: var(--pad);
+  font-family: var(--sans);
+  font-size: var(--text-size);
+  font-weight: 400;
+  letter-spacing: var(--track);
+  line-height: var(--text-leading);
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0;
+}
+
+/* Copyright on info page — flows naturally, full white */
+.info .copyright {
+  color: #fff;
+  margin: 0;
+}
+/* ---------- Information overlay ---------- */
+.info {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  letter-spacing: var(--track);
+  padding: calc(var(--pad) * 0.75) var(--pad);
+  overflow-y: auto;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+}
+.info a { color: #fff; }
+.info[aria-hidden="false"] {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info-close {
+  position: fixed;
+  top: calc(var(--pad) * 0.75);
+  right: var(--pad);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  letter-spacing: var(--track);
+  color: #fff;
+  z-index: 11;
+}
+
+.info__lede { margin: 0 0 calc(var(--text-leading) * 1em); }
+
+.info__inner p { margin: 0 0 calc(var(--text-leading) * 1em); }
+
+.info__inner {
+  max-width: 65ch;
+}
+
+/* ---------- Condense vertical padding as viewport height shrinks ---------- */
+@media (max-height: 800px) { :root { --big: 15vh; } }
+@media (max-height: 650px) { :root { --big: 12vh; } }
+@media (max-height: 520px) { :root { --big: 9vh; } }
+
+/* ---------- Tablet: info copy goes full width ---------- */
+@media (max-width: 800px) {
+}
+
+.info__list {
+  margin: 0 0 2em;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  row-gap: 1.6em;
+  column-gap: var(--pad);
+}
+.info__row { display: contents; }
+.info__list dt { font-weight: 400; }
+.info__list dd { margin: 0; }
+
+.info__privacy p { margin: 0 0 calc(var(--text-leading) * 1em); }
+
+/* ---------- Phone-only layout overrides ---------- */
+@media (max-width: 430px) {
+  :root {
+    --big: 12vh;
+    /* Text size matches card body text at its scaled size:
+       14.667px × (100vw - 32px) / 227px */
+    --text-size: calc(14.667px * (100vw - 32px) / 227px * 3 / 4);
+  }
+
+  .info__list {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+  .info__list dt {
+    margin-top: var(--text-leading, 1.2308em);
+  }
+  .info__list dd { margin-bottom: 1em; }
+
+  .info {
+    padding: 16px !important;
+  }
+  .info-toggle, .info-close {
+    top: 16px !important;
+  }
+  .info-toggle { left: 16px !important; }
+  .info-close  { right: 16px !important; }
+
+  .home {
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .cards {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    cursor: pointer;
+  }
+
+  /* Always scale to fill screen width minus site padding each side */
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px));
+    transform-origin: center center;
+    transition: none;
+  }
+
+  .card--info a {
+    pointer-events: none;
+    text-decoration: none;
+  }
+
+  .card--date  { opacity: 1; pointer-events: auto; }
+  .card--info  { opacity: 0; pointer-events: none; }
+
+  .cards--flipped .card--date { opacity: 0; pointer-events: none; }
+  .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
+}
