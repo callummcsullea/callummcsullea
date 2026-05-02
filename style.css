@@ -146,6 +146,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: 0;
   line-height: 24px;
   margin-bottom: 19px;
+  padding-top: 24px;
 }
 
 /* Copyright — fixed bottom-left on home */
