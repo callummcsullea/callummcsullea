@@ -143,7 +143,24 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: 0;
 }
 
-/* ---------- Information overlay ---------- */
+/* Copyright — fixed bottom-left on home */
+.home .copyright {
+  position: fixed;
+  bottom: var(--pad);
+  left: var(--pad);
+  font-family: var(--sans);
+  font-size: var(--text-size);
+  font-weight: 400;
+  letter-spacing: var(--track);
+  line-height: var(--text-leading);
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0;
+}
+
+/* Copyright on info page — full white */
+.info .copyright {
+  color: #fff;
+}
 .info {
   position: fixed;
   inset: 0;
