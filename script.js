@@ -18,7 +18,7 @@ function bindInfo() {
 
   const setOpen = (isOpen) => {
     info.setAttribute("aria-hidden", isOpen ? "false" : "true");
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.overflow = isOpen ? "auto" : "";
   };
 
   open.addEventListener("click", () => setOpen(true));
