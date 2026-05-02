@@ -71,7 +71,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: var(--ink);
   letter-spacing: var(--track);
   line-height: var(--text-leading);
-  -webkit-text-stroke: 1px var(--ink);
+  -webkit-text-stroke: 0.1px var(--ink);
 }
 
 .cards {
