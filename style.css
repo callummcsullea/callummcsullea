@@ -113,7 +113,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   mix-blend-mode: multiply;
   opacity: 0.8;
   text-shadow: 0 0 1px #ff0c00;
-  -webkit-text-stroke: 0.8px #ff0c00;
+  -webkit-text-stroke: 0.08px #ff0c00;
 }
 
 /* Bottom card — 11pt / 18.5pt leading, centred */
@@ -134,7 +134,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   mix-blend-mode: multiply;
   opacity: 0.8;
   text-shadow: 0 0 1px #ff0c00;
-  -webkit-text-stroke: 0.8px #ff0c00;
+  -webkit-text-stroke: 0.08px #ff0c00;
 }
 .card__header {
   display: flex;
