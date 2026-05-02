@@ -213,6 +213,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
   .info__list dt { margin-top: 1.2em; }
 
+  .info {
+    padding: 16px;
+  }
+  .info-toggle, .info-close {
+    top: 16px;
+  }
+  .info-toggle { left: 16px; }
+  .info-close  { right: 16px; }
+
   .home {
     height: 100vh;
     padding: 0;
