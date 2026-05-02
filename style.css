@@ -106,7 +106,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card--date .date {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 44px;
+  font-size: calc(var(--text-size) * 3);
   letter-spacing: 0.12em;
   line-height: 1;
   color: var(--coral);
@@ -124,7 +124,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card__footer {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 14.667px;
+  font-size: var(--text-size);
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
   color: var(--coral);
@@ -210,7 +210,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Phone-only layout overrides ---------- */
 @media (max-width: 430px) {
-  :root { --big: 12vh; }
+  :root {
+    --big: 12vh;
+    /* Text size matches card body text at its scaled size:
+       14.667px × (100vw - 32px) / 227px */
+    --text-size: calc(14.667px * (100vw - 32px) / 227px);
+  }
 
   .info__list {
     grid-template-columns: 1fr;
