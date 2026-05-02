@@ -240,12 +240,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
-  /* Physical size unless screen too narrow; then fit within site padding on each side */
+  /* Scale card so its rotated short side (227px) = 100vw minus site padding on each side */
   .card {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg) scale(min(1, calc((100vw - 32px) / 227px)));
+    transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px));
     transform-origin: center center;
     transition: none;
   }
