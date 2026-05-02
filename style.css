@@ -118,7 +118,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  padding: 15px 15px 19px;
+  padding: 16.2px 15px 19px;
 }
 .card__header,
 .card__footer {
