@@ -50,7 +50,7 @@ function bindCardFlip() {
   const cards = document.querySelector(".cards");
   if (!cards) return;
   cards.addEventListener("click", (e) => {
-    if (e.clientY < 60) return; // ignore taps in top area (Information button zone)
+    if (!e.target.closest(".card")) return; // only flip when tapping the card itself
     cards.classList.toggle("cards--flipped");
   });
 }
