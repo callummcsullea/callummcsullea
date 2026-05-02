@@ -110,12 +110,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 44px;
   letter-spacing: 0.12em;
   line-height: 1;
-  color: var(--coral);
-  white-space: nowrap;
+  color: #ff0c00;
   mix-blend-mode: multiply;
   opacity: 0.8;
-  filter: blur(0.12px);
-  -webkit-text-stroke: 0.2px var(--coral);
+  filter: blur(0.05px);
+  -webkit-text-stroke: 0.3px #ff0c00;
 }
 
 /* Bottom card — 11pt / 18.5pt leading, centred */
@@ -132,11 +131,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 14.667px;
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
-  color: var(--coral);
+  color: #ff0c00;
   mix-blend-mode: multiply;
   opacity: 0.8;
-  filter: blur(0.12px);
-  -webkit-text-stroke: 0.2px var(--coral);
+  filter: blur(0.05px);
+  -webkit-text-stroke: 0.3px #ff0c00;
 }
 .card__header {
   display: flex;
