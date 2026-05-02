@@ -7,6 +7,7 @@ function renderDate() {
   const m = now.getMonth() + 1;
   const y = String(now.getFullYear()).slice(-2);
   el.textContent = `${d} ${m} ${y}`;
+  el.style.visibility = "visible";
 }
 
 // Information overlay open/close
