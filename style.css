@@ -254,7 +254,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .info__list dd { margin-bottom: 1em; }
 
   .info, .info p, .info__lede, .info__inner {
-    font-size: var(--text-size);
+    font-size: 14px;
   }
   .info {
     padding: 16px !important;
@@ -280,8 +280,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 100vw;
     height: 100vh;
     cursor: pointer;
-    padding-top: 48px; /* keep top clear for Information button */
+    padding-top: 48px;
     box-sizing: border-box;
+    pointer-events: none;
   }
 
   /* Always scale to fill screen width minus site padding each side */
