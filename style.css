@@ -82,6 +82,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Short viewport — toggle cards like mobile ---------- */
 @media (max-height: 510px) {
+  .home {
+    overflow: visible;
+  }
+
   .cards {
     position: relative;
     width: 340px;
@@ -93,6 +97,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     position: absolute;
     top: 0;
     left: 0;
+    margin: 0;
   }
 
   .card--date  { opacity: 1; pointer-events: auto; }
