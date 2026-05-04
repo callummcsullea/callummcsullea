@@ -101,12 +101,13 @@ function bindCardFlip() {
   inner.addEventListener("click", (e) => {
     if (inner._wasSwiped) { inner._wasSwiped = false; return; }
     const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
-    if (isShortViewport) return; // handled by home listener
+    if (isShortViewport) return;
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
     if (isMobile) {
+      // Card is rotated 90°, so top/bottom of visible card = left/right of actual element
       const rect = inner.getBoundingClientRect();
-      const midX = rect.left + rect.width / 2;
-      flip(e.clientX < midX ? "right" : "left");
+      const midY = rect.top + rect.height / 2;
+      flip(e.clientY < midY ? "right" : "left");
     }
   });
 
@@ -122,6 +123,7 @@ function bindCardFlip() {
       flip(e.clientX < midX ? "left" : "right");
     });
   }
+
   inner.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
@@ -133,11 +135,20 @@ function bindCardFlip() {
     const dy = e.changedTouches[0].clientY - touchStartY;
     const absDx = Math.abs(dx);
     const absDy = Math.abs(dy);
+    const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
 
-    if (absDx > 40 && absDx > absDy) {
-      // Horizontal swipe — treat as flip
-      inner._wasSwiped = true;
-      flip(dx < 0 ? "right" : "left");
+    if (isMobile) {
+      // Card rotated 90° — vertical swipe flips
+      if (absDy > 40 && absDy > absDx) {
+        inner._wasSwiped = true;
+        flip(dy < 0 ? "right" : "left");
+      }
+    } else {
+      // Short viewport desktop — horizontal swipe
+      if (absDx > 40 && absDx > absDy) {
+        inner._wasSwiped = true;
+        flip(dx < 0 ? "right" : "left");
+      }
     }
     touchStartX = null;
     touchStartY = null;
