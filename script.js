@@ -90,12 +90,30 @@ function bindCardFlip() {
   // Tap
   inner.addEventListener("click", (e) => {
     if (inner._wasSwiped) { inner._wasSwiped = false; return; }
-    const rect = inner.getBoundingClientRect();
-    const midX = rect.left + rect.width / 2;
-    flip(e.clientX < midX ? "right" : "left");
+    const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
+    const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
+
+    if (isShortViewport) {
+      // Short viewport desktop — always flip same direction, click anywhere
+      flip("right");
+    } else if (isMobile) {
+      // Mobile — direction based on which half tapped
+      const rect = inner.getBoundingClientRect();
+      const midX = rect.left + rect.width / 2;
+      flip(e.clientX < midX ? "right" : "left");
+    }
   });
 
-  // Swipe
+  // Also listen on .home for short viewport desktop (full screen click area)
+  const home = document.querySelector(".home");
+  if (home) {
+    home.addEventListener("click", (e) => {
+      const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
+      if (!isShortViewport) return;
+      if (inner._wasSwiped) { inner._wasSwiped = false; return; }
+      flip("right");
+    });
+  }
   inner.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
