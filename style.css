@@ -94,6 +94,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   transition: transform 0.5s ease;
   pointer-events: auto;
   cursor: pointer;
+  filter: drop-shadow(0px 1.5px 0.75px rgba(0, 0, 0, 0.15));
 }
 
 /* ---------- Cards ---------- */
@@ -101,7 +102,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   width: 340px;
   height: 227px;
   background: var(--card) url('/images/background.jpg') center / cover no-repeat;
-  box-shadow: 0px 1.5px 0.75px rgba(0, 0, 0, 0.15);
   border-radius: 0.2px;
   position: absolute;
   top: 0;
