@@ -301,7 +301,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .info-toggle, .info-close {
     top: 16px !important;
   }
-  .info-toggle { left: 16px !important; }
+  .info-toggle { left: 16px !important; font-size: 0; }
+  .info-toggle::before { content: '...'; font-size: 14px; }
   .info-close  { right: 16px !important; position: absolute !important; }
 
   .home {
