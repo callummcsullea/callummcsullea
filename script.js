@@ -58,32 +58,22 @@ function bindCardFlip() {
   const inner = document.querySelector(".cards__inner");
   if (!inner) return;
 
-  let rotationX = 0; // mobile Y-axis swipe (appears up/down due to card rotation)
-  let rotationZ = 0; // mobile X-axis swipe (appears left/right due to card rotation)
-  let rotationY = 0; // desktop
+  let rotX = 0; // cumulative X rotation (up/down tilt)
+  let rotY = 0; // cumulative Y rotation (left/right spin)
+  let rotationY = 0; // desktop only
   let touchStartX = null;
   let touchStartY = null;
 
   function applyMobileTransform() {
     const scale = (window.innerWidth - 32) / 227;
-    inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${scale}) rotateY(${rotationX}deg) rotateX(${rotationZ}deg)`;
+    inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${scale}) rotateY(${rotY}deg) rotateX(${rotX}deg)`;
   }
 
   function flip(direction) {
     const cards = document.querySelector(".cards");
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
 
-    if (isMobile) {
-      if (direction === "up")    rotationX += 180;
-      if (direction === "down")  rotationX -= 180;
-      if (direction === "left")  rotationZ -= 180;
-      if (direction === "right") rotationZ += 180;
-      applyMobileTransform();
-      const isFlipped = Math.abs(rotationX % 360) === 180 || Math.abs(rotationZ % 360) === 180;
-      cards.classList.remove("cards--flipped-left", "cards--flipped-right");
-      if (isFlipped) cards.classList.add("cards--flipped-right");
-    } else {
-      // Desktop — short edge flip (rotateY)
+    if (!isMobile) {
       if (direction === "left" || direction === "up") {
         rotationY -= 180;
       } else {
@@ -94,6 +84,20 @@ function bindCardFlip() {
       cards.classList.remove("cards--flipped-left", "cards--flipped-right");
       if (isFlipped) cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
     }
+  }
+
+  function freeRotate(dx, dy) {
+    const cards = document.querySelector(".cards");
+    // Map swipe vector to rotation — swipe right = rotY+, swipe up = rotX+
+    rotY += dx * 0.5;
+    rotX -= dy * 0.5;
+    applyMobileTransform();
+    // Determine if card is showing front or back
+    const normY = ((rotY % 360) + 360) % 360;
+    const normX = ((rotX % 360) + 360) % 360;
+    const isFlipped = (normY > 90 && normY < 270) || (normX > 90 && normX < 270);
+    cards.classList.remove("cards--flipped-left", "cards--flipped-right");
+    if (isFlipped) cards.classList.add("cards--flipped-right");
   }
 
   // Tap on inner (mobile) or home (desktop)
@@ -127,17 +131,14 @@ function bindCardFlip() {
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
 
     if (isMobile) {
-      if (absDy > 40 && absDy > absDx) {
-        // Vertical swipe — flip on Y axis (up/down)
-        flip(dy < 0 ? "up" : "down");
-      } else if (absDx > 40 && absDx > absDy) {
-        // Horizontal swipe — flip on X axis (left/right)
-        flip(dx < 0 ? "left" : "right");
-      } else if (absDx < 10 && absDy < 10) {
-        // Tap — use Y position
+      if (absDx > 10 || absDy > 10) {
+        // Any swipe — free rotate based on vector
+        freeRotate(dx, dy);
+      } else {
+        // Tap — snap 180° on Y axis based on top/bottom
         const rect = inner.getBoundingClientRect();
         const midY = rect.top + rect.height / 2;
-        flip(e.changedTouches[0].clientY < midY ? "up" : "down");
+        freeRotate(0, e.changedTouches[0].clientY < midY ? -180 : 180);
       }
     } else {
       if (absDx > 40 && absDx > absDy) {
