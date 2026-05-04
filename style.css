@@ -282,7 +282,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
 
   .card--info {
-    transform: rotateX(180deg);
+    transform: rotateY(180deg);
   }
 
   .card--date  { opacity: 1; }
