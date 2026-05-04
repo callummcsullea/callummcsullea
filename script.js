@@ -88,11 +88,18 @@ function bindCardFlip() {
 
   function freeRotate(dx, dy) {
     const cards = document.querySelector(".cards");
-    // Map swipe vector to rotation — swipe right = rotY+, swipe up = rotX+
-    rotY += dx * 0.5;
-    rotX -= dy * 0.5;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 10) return;
+
+    // Normalise swipe vector, apply 180° split across both axes
+    const nx = dx / dist;
+    const ny = dy / dist;
+
+    rotY += nx * 180;
+    rotX -= ny * 180;
+
     applyMobileTransform();
-    // Determine if card is showing front or back
+
     const normY = ((rotY % 360) + 360) % 360;
     const normX = ((rotX % 360) + 360) % 360;
     const isFlipped = (normY > 90 && normY < 270) || (normX > 90 && normX < 270);
