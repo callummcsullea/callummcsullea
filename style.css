@@ -134,6 +134,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   opacity: 0.75;
   text-shadow: 0 0 1px #f2180a;
   -webkit-text-stroke: 0.08px #f2180a;
+  filter: url(#ink-bleed);
 }
 
 /* Bottom card ---------- */
@@ -155,6 +156,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   opacity: 0.75;
   text-shadow: 0 0 0.9px #f2180a;
   -webkit-text-stroke: 0.06px #f2180a;
+  filter: url(#ink-bleed);
 }
 .card__header {
   display: flex;
