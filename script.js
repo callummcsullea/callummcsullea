@@ -90,14 +90,10 @@ function bindCardFlip() {
   // Tap
   inner.addEventListener("click", (e) => {
     if (inner._wasSwiped) { inner._wasSwiped = false; return; }
-    const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
     const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
-
-    if (isShortViewport) {
-      // Short viewport desktop — always flip same direction, click anywhere
-      flip("right");
-    } else if (isMobile) {
-      // Mobile — direction based on which half tapped
+    if (isShortViewport) return; // handled by home listener
+    const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
+    if (isMobile) {
       const rect = inner.getBoundingClientRect();
       const midX = rect.left + rect.width / 2;
       flip(e.clientX < midX ? "right" : "left");
