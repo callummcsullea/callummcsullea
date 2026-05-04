@@ -79,7 +79,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: var(--gap);
 }
 
-/* Cards fixed at 90x60mm. 1pt = 1.3333px at 96dpi. */
+/* ---------- Cards ---------- */
 .card {
   width: 340px;
   height: 227px;
@@ -90,7 +90,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex;
 }
 
-/* Top card — 33pt date, centred */
+/* Top card ---------- */
 .card--date {
   align-items: center;
   justify-content: center;
@@ -110,7 +110,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   -webkit-text-stroke: 0.08px #f2180a;
 }
 
-/* Bottom card — 11pt / 18.5pt leading, centred */
+/* Bottom card ---------- */
 .card--info {
   flex-direction: column;
   justify-content: flex-start;
@@ -287,7 +287,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     top: 16px !important;
   }
   .info-toggle { left: 16px !important; }
-  .info-close  { right: 16px !important; position: fixed !important; }
+  .info-close  { right: 16px !important; position: absolute !important; }
 
   .home {
     height: 100dvh;
