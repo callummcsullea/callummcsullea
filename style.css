@@ -290,19 +290,20 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .info-close  { right: 16px !important; }
 
   .home {
-    height: 100vh;
+    height: 100dvh;
     padding: 0;
     overflow: hidden;
   }
 
   body {
     overflow: hidden;
+    height: 100dvh;
   }
 
   .cards {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     pointer-events: none;
   }
 
