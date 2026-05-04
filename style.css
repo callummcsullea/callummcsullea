@@ -133,7 +133,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
   text-shadow: 0 0 1px #f2180a;
   -webkit-text-stroke: 0.08px #f2180a;
-  filter: url(#ink-bleed);
+  filter: url(#ink-bleed-lg);
 }
 
 /* Bottom card ---------- */
