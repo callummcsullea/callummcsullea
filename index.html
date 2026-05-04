@@ -1,353 +1,122 @@
-/* ---------- Tokens ---------- */
-:root {
-  --bg: #ffffff;
-  --card: #ececeb;
-  --ink: #111;
-  --coral: #e87461;
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>callum mcsullea</title>
+  <meta name="description" content="graphic design" />
+  <meta name="keywords" content="Callum McSullea, graphic design, graphic designer, Sydney, identity, print, digital design, publications, photography, websites, printed matter" />
+  <meta name="author" content="Callum McSullea" />
+  <meta name="robots" content="index, follow" />
 
-  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  <!-- Open Graph / Facebook / iMessage -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://callummcsullea.com/" />
+  <meta property="og:title" content="callum mcsullea" />
+  <meta property="og:description" content="graphic design" />
+  <meta property="og:image" content="https://callummcsullea.com/images/share.jpg" />
 
-  --track: 0.12em;
-  --pad: 16px;
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="callum mcsullea" />
+  <meta name="twitter:description" content="graphic design" />
+  <meta name="twitter:image" content="https://callummcsullea.com/images/share.jpg" />
 
-  --big: 18vh;
-  --gap: 56.75px;
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐣</text></svg>" id="favicon" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- SVG filter for ink bleed effect on card text -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="ink-bleed" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" seed="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.96" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="ink-bleed-lg" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" seed="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.77" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="card-edge" x="-2%" y="-2%" width="104%" height="104%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="5" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.625" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+  <!-- Home view -->
+  <main class="home" id="home">
+    <button class="info-toggle" id="open-info" aria-label="Open information">Information</button>
 
-  --text-size: 14.667px;
-  --text-leading: calc(32 / 26);
-}
+    <section class="cards" aria-label="Business card">
+      <div class="cards__inner">
+        <article class="card card--date">
+        <span class="date" id="date" aria-label="Today's date" style="visibility:hidden">1 5 26</span>
+      </article>
 
-/* ---------- Reset ---------- */
-* { box-sizing: border-box; }
+      <article class="card card--info">
+        <header class="card__header">
+          <span>callum mcsullea&nbsp;&nbsp;&nbsp;&nbsp;graphic design</span>
+        </header>
+        <div class="card__spacer"></div>
+        <footer class="card__footer">
+          <span>+61423082591</span>
+          <span>info@callummcsullea.com</span>
+        </footer>
+      </article>
+      </div>
+    </section>
 
-html {
-  font-size: 16px;
-  width: 100%;
-  height: 100%;
-  background: var(--bg);
-}
+  </main>
 
-body {
-  margin: 0;
-  height: 100%;
-  overflow: auto;
-  background: var(--bg);
-  color: var(--coral);
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: var(--text-size);
-  line-height: var(--text-leading);
-  letter-spacing: var(--track);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  <!-- Information overlay -->
+  <aside class="info" id="info" aria-hidden="true" aria-labelledby="info-title">
+    <button class="info-close" id="close-info" aria-label="Close information">Close</button>
 
-a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+    <div class="info__inner">
+      <p class="info__lede" id="info-title">
+        Callum McSullea<br />
+        <a href="tel:+61423082591">+61 423 082 591</a><br />
+        <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a><br />
+        <a href="https://instagram.com/ca__um" target="_blank" rel="noopener">@ca__um</a>
+      </p>
 
-/* ---------- Home ---------- */
-.home {
-  position: fixed;
-  inset: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+      <p class="info__lede">
+        Callum McSullea is a graphic designer based in Sydney, Australia. To discuss a potential project, please email <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>.
+      </p>
 
-.info-toggle {
-  position: fixed;
-  top: calc(var(--pad) * 0.75);
-  left: var(--pad);
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: var(--text-size);
-  color: var(--ink);
-  letter-spacing: var(--track);
-  line-height: var(--text-leading);
-  z-index: 5;
-  padding: 0.8em 1em 0.8em 0;
-  margin: -0.8em -1em -0.8em 0;
-  -webkit-text-stroke: 0.1px var(--ink);
-}
+      <p>Services<br />
+        Publications<br />
+        Digital Design<br />
+        Identity<br />
+        Photography<br />
+        Printed Matter<br />
+        Websites</p>
 
-.cards {
-  position: relative;
-  width: 340px;
-  height: 227px;
-  pointer-events: none;
-  perspective: 1000px;
-}
+      <p>Education<br />
+        University of Technology Sydney<br />
+        Bachelor of Design in Visual Communication<br />
+        2024</p>
 
-/* cards__inner — 3D flip container */
-.cards__inner {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 340px;
-  height: 227px;
-  transform-style: preserve-3d;
-  transform: none;
-  transform-origin: center center;
-  transition: transform 0.5s ease;
-  pointer-events: auto;
-  cursor: pointer;
-}
+      <p>Experience<br />
+        M35<br />
+        Graphic Designer<br />
+        2021–2026</p>
 
-/* ---------- Cards ---------- */
-.card {
-  width: 340px;
-  height: 227px;
-  background: var(--card) url('/images/background.jpg') center / cover no-repeat;
-  box-shadow: 0px 1.5px 0.75px rgba(0, 0, 0, 0.15);
-  border-radius: 0.2px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  filter: url(#card-edge);
-}
-.card--info {
-  transform: rotateY(180deg);
-}
+      <section class="info__privacy">
+        <p>Privacy Policy: The Australian Privacy Principles (APPs) contained in the Privacy Act 1988 (Cth) govern the way in which Personal Information is collected, used, disclosed, stored, secured and disposed of. A copy of the Australian Privacy Principles may be obtained from the website of The Office of the Australian Information Commissioner at <a href="https://www.oaic.gov.au/" target="_blank" rel="noopener">www.oaic.gov.au</a>.<br />
+        What is Personal Information and why do we collect it: Personal Information is information or an opinion that identifies an individual. Examples of Personal Information collected include names, email addresses, and phone numbers. This Personal Information is obtained through correspondence and email. Personal Information is collected for the primary purpose of providing graphic design services and responding to enquiries. It will not be used for marketing or shared with third parties.<br />
+        Disclosure of Personal Information: Personal Information will not be disclosed to third parties except where required or authorised by law.<br />
+        Security of Personal Information: Personal Information is stored in a manner that reasonably protects it from misuse, loss, and unauthorised access, modification or disclosure. When Personal Information is no longer needed for the purpose for which it was obtained, reasonable steps will be taken to destroy or permanently de-identify it.<br />
+        Website Analytics: This website uses Vercel Analytics to understand how visitors use the site. Vercel Analytics does not use cookies, does not track you across websites, and does not collect personally identifiable information. Data collected is aggregated and anonymous and includes pages visited, referring URL, general device information, and country-level location derived from IP address (which is not stored). For more information, see <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel&#x2019;s Privacy Policy</a>.<br />
+        Access to your Personal Information: You may access the Personal Information held about you and request that it be updated or corrected. To request access, please contact <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>.<br />
+        Policy Updates: This policy may change from time to time and is available on this website.<br />
+        Complaints and Enquiries: If you have any queries or complaints about this Privacy Policy please contact us at <a href="mailto:info@callummcsullea.com">info@callummcsullea.com</a>.</p>
+        <p class="copyright">&#169; Callum McSullea 2026</p>
+      </section>
+    </div>
+  </aside>
 
-/* Top card ---------- */
-.card--date {
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-.card--date .date {
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: 44px;
-  letter-spacing: 0.12em;
-  line-height: 1;
-  color: #ef5831;
-  white-space: nowrap;
-  mix-blend-mode: multiply;
-
-  text-shadow: 0 0 1px #ef5831;
-  -webkit-text-stroke: 0.08px #ef5831;
-  filter: url(#ink-bleed-lg);
-}
-
-/* Bottom card ---------- */
-.card--info {
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: center;
-  padding: 17.5px 15px 9.5px;
-}
-.card__header,
-.card__footer {
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: 14.667px;
-  letter-spacing: 0.12em;
-  line-height: calc(18.5 / 11);
-  color: #ef5831;
-  mix-blend-mode: multiply;
-
-  text-shadow: 0 0 0.9px #ef5831;
-  -webkit-text-stroke: 0.06px #ef5831;
-  filter: url(#ink-bleed);
-}
-.card__header {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: 0 3em;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-}
-.card__spacer { flex: 1; }
-.card__footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  line-height: 24px;
-  margin-top: auto;
-  margin-bottom: 9.5px;
-  padding-top: 0;
-}
-
-/* Copyright — fixed bottom-left on home */
-.home .copyright {
-  position: fixed;
-  bottom: var(--pad);
-  left: var(--pad);
-  font-family: var(--sans);
-  font-size: var(--text-size);
-  font-weight: 400;
-  letter-spacing: var(--track);
-  line-height: var(--text-leading);
-  color: rgba(0, 0, 0, 0.4);
-  margin: 0;
-}
-
-/* Copyright on info page — flows naturally, full white */
-.info .copyright {
-  color: #fff;
-  margin: 0;
-}
-
-/* ---------- Information overlay ---------- */
-.info {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  color: #fff;
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: var(--text-size);
-  line-height: var(--text-leading);
-  letter-spacing: var(--track);
-  padding: calc(var(--pad) * 0.75) var(--pad);
-  overflow-y: auto;
-  visibility: hidden;
-  opacity: 0;
-  z-index: 10;
-  text-wrap: pretty;
-}
-.info a { color: #fff; }
-.info[aria-hidden="false"] {
-  visibility: visible;
-  opacity: 1;
-}
-
-.info-close {
-  position: fixed;
-  top: calc(var(--pad) * 0.75);
-  right: var(--pad);
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: var(--text-size);
-  line-height: var(--text-leading);
-  letter-spacing: var(--track);
-  color: #fff;
-  z-index: 11;
-}
-
-.info__inner {
-  max-width: 65ch;
-}
-
-.info__lede { margin: 0 0 calc(var(--text-leading) * 1em); }
-
-.info__inner p { margin: 0 0 calc(var(--text-leading) * 1em); }
-
-.info__list {
-  margin: 0 0 2em;
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  row-gap: 1.6em;
-  column-gap: var(--pad);
-}
-.info__row { display: contents; }
-.info__list dt { font-weight: 400; }
-.info__list dd { margin: 0; }
-
-.info__privacy p { margin: 0 0 calc(var(--text-leading) * 1em); }
-
-/* ---------- Phone-only layout overrides ---------- */
-@media (max-width: 430px) and (orientation: portrait) {
-  :root {
-    --big: 12vh;
-    --text-size: calc(14.667px * (100vw - 32px) / 227px * 3 / 4);
-  }
-
-  .info__list {
-    grid-template-columns: 1fr;
-    row-gap: 0;
-  }
-  .info__list dt { margin-top: var(--text-leading, 1.2308em); }
-  .info__list dd { margin-bottom: 1em; }
-
-  .info, .info p, .info__lede, .info__inner {
-    font-size: 14px;
-  }
-  .info {
-    padding: 16px !important;
-  }
-  .info-toggle, .info-close {
-    top: 16px !important;
-  }
-  .info-toggle { left: 16px !important; font-size: 0; }
-  .info-toggle::before { content: '...'; font-size: 14px; }
-  .info-close  { right: 16px !important; position: absolute !important; font-size: 14px !important; }
-
-  .home {
-    height: 100dvh;
-    padding: 0;
-    overflow: hidden;
-    background: var(--bg);
-  }
-
-  body {
-    overflow: hidden;
-    height: 100dvh;
-    background: var(--bg);
-    overscroll-behavior: none;
-  }
-
-  .cards__inner {
-    touch-action: none;
-  }
-
-  .cards {
-    position: relative;
-    width: 100vw;
-    height: 100dvh;
-    pointer-events: none;
-    perspective: 1000px;
-  }
-
-  /* Flip container — holds both cards, rotates in 3D */
-  .cards__inner {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 340px;
-    height: 227px;
-    transform-style: preserve-3d;
-    transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px));
-    transform-origin: center center;
-    transition: transform 0.5s ease;
-    pointer-events: auto;
-    cursor: pointer;
-  }
-
-  .cards--flipped-left  .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(180deg); }
-  .cards--flipped-right .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(-180deg); }
-
-  .card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 340px;
-    height: 227px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    box-shadow: -1.5px 0px 0.75px rgba(0, 0, 0, 0.15);
-    transform: none;
-  }
-
-  .card--info {
-    transform: rotateY(180deg);
-  }
-
-  .card--info a {
-    pointer-events: none;
-    text-decoration: none;
-  }
-
-  .card--date  { opacity: 1; }
-  .card--info  { opacity: 1; }
-}
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
