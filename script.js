@@ -66,21 +66,6 @@ function bindCardFlip() {
   function flip(direction) {
     const cards = document.querySelector(".cards");
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
-    const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
-
-    if (isShortViewport) {
-      // Left/right half determines direction — short edge flip (rotateY)
-      if (direction === "left") {
-        rotationY -= 180;
-      } else {
-        rotationY += 180;
-      }
-      inner.style.transform = `rotateY(${rotationY}deg)`;
-      const isFlipped = Math.abs(rotationY % 360) === 180;
-      cards.classList.remove("cards--flipped-left", "cards--flipped-right");
-      if (isFlipped) cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
-      return;
-    }
 
     if (isMobile) {
       if (direction === "left") {
@@ -94,29 +79,35 @@ function bindCardFlip() {
       if (isFlipped) {
         cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
       }
+    } else {
+      // Desktop — short edge flip (rotateY)
+      if (direction === "left") {
+        rotationY -= 180;
+      } else {
+        rotationY += 180;
+      }
+      inner.style.transform = `rotateY(${rotationY}deg)`;
+      const isFlipped = Math.abs(rotationY % 360) === 180;
+      cards.classList.remove("cards--flipped-left", "cards--flipped-right");
+      if (isFlipped) cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
     }
   }
 
-  // Tap
+  // Tap on inner (mobile) or home (desktop)
   inner.addEventListener("click", (e) => {
     if (inner._wasSwiped) { inner._wasSwiped = false; return; }
-    const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
-    if (isShortViewport) return;
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
-    if (isMobile) {
-      // Card is rotated 90°, so top/bottom of visible card = left/right of actual element
-      const rect = inner.getBoundingClientRect();
-      const midY = rect.top + rect.height / 2;
-      flip(e.clientY < midY ? "right" : "left");
-    }
+    if (!isMobile) return; // desktop handled by home listener
+    const rect = inner.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    flip(e.clientY < midY ? "right" : "left");
   });
 
-  // Also listen on .home for short viewport desktop (full screen click area)
   const home = document.querySelector(".home");
   if (home) {
     home.addEventListener("click", (e) => {
-      const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
-      if (!isShortViewport) return;
+      const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
+      if (isMobile) return;
       if (inner._wasSwiped) { inner._wasSwiped = false; return; }
       const rect = inner.getBoundingClientRect();
       const midX = rect.left + rect.width / 2;
