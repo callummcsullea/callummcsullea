@@ -118,7 +118,8 @@ function bindCardFlip() {
   inner.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
-  }, { passive: true });
+    e.preventDefault();
+  }, { passive: false });
 
   inner.addEventListener("touchend", (e) => {
     if (touchStartX === null) return;
