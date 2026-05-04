@@ -88,7 +88,7 @@ function bindCardFlip() {
       } else {
         rotationX += 180;
       }
-      inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
+      inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateY(${rotationX}deg)`;
       const isFlipped = Math.abs(rotationX % 360) === 180;
       cards.classList.remove("cards--flipped-left", "cards--flipped-right");
       if (isFlipped) {
