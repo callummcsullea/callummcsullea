@@ -71,7 +71,14 @@ function bindCardFlip() {
       rotationX += 180;
     }
 
-    inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
+    const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
+    const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
+
+    if (isMobile) {
+      inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
+    } else if (isShortViewport) {
+      inner.style.transform = `rotateX(${rotationX}deg)`;
+    }
 
     const isFlipped = Math.abs(rotationX % 360) === 180;
     cards.classList.remove("cards--flipped-left", "cards--flipped-right");
