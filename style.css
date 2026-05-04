@@ -349,8 +349,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
-  .cards--flipped-left  .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateX(180deg); }
-  .cards--flipped-right .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateX(-180deg); }
+  .cards--flipped-left  .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(180deg); }
+  .cards--flipped-right .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(-180deg); }
 
   .card {
     position: absolute;
@@ -365,7 +365,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
 
   .card--info {
-    transform: rotateX(180deg);
+    transform: rotateY(180deg);
   }
 
   .card--info a {
