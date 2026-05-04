@@ -80,18 +80,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   perspective: 1000px;
 }
 
-/* Separate shadow element — stays fixed, never rotates */
-.card__shadow {
-  position: absolute;
-  top: 2px;
-  left: 0;
-  width: 340px;
-  height: 227px;
-  box-shadow: 0px 1.5px 0.75px rgba(0, 0, 0, 0.15);
-  border-radius: 0.2px;
-  pointer-events: none;
-}
-
 /* cards__inner — 3D flip container */
 .cards__inner {
   display: block;
@@ -113,6 +101,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   width: 340px;
   height: 227px;
   background: var(--card) url('/images/background.jpg') center / cover no-repeat;
+  box-shadow: 0px 1.5px 0.75px rgba(0, 0, 0, 0.15);
   border-radius: 0.2px;
   position: absolute;
   top: 0;
