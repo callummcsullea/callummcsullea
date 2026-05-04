@@ -85,7 +85,7 @@ function bindCardFlip() {
     if (inner._wasSwiped) { inner._wasSwiped = false; return; }
     const rect = inner.getBoundingClientRect();
     const midX = rect.left + rect.width / 2;
-    flip(e.clientX < midX ? "left" : "right");
+    flip(e.clientX < midX ? "right" : "left");
   });
 
   // Swipe
