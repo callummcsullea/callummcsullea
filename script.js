@@ -130,15 +130,17 @@ function bindCardFlip() {
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
 
     if (isMobile) {
-      // Card rotated 90° — vertical swipe flips
       if (absDy > 40 && absDy > absDx) {
-        inner._wasSwiped = true;
+        // Vertical swipe
         flip(dy < 0 ? "right" : "left");
+      } else if (absDx < 10 && absDy < 10) {
+        // Tap — use Y position to determine direction
+        const rect = inner.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        flip(e.changedTouches[0].clientY < midY ? "right" : "left");
       }
     } else {
-      // Short viewport desktop — horizontal swipe
       if (absDx > 40 && absDx > absDy) {
-        inner._wasSwiped = true;
         flip(dx < 0 ? "right" : "left");
       }
     }
