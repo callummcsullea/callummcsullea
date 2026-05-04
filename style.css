@@ -127,12 +127,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 44px;
   letter-spacing: 0.12em;
   line-height: 1;
-  color: #d83c39;
+  color: #ef5831;
   white-space: nowrap;
   mix-blend-mode: multiply;
 
-  text-shadow: 0 0 1px #d83c39;
-  -webkit-text-stroke: 0.08px #d83c39;
+  text-shadow: 0 0 1px #ef5831;
+  -webkit-text-stroke: 0.08px #ef5831;
   filter: url(#ink-bleed-lg);
 }
 
@@ -150,11 +150,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 14.667px;
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
-  color: #d83c39;
+  color: #ef5831;
   mix-blend-mode: multiply;
 
-  text-shadow: 0 0 0.9px #d83c39;
-  -webkit-text-stroke: 0.06px #d83c39;
+  text-shadow: 0 0 0.9px #ef5831;
+  -webkit-text-stroke: 0.06px #ef5831;
   filter: url(#ink-bleed);
 }
 .card__header {
