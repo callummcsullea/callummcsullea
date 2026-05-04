@@ -109,9 +109,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  filter: url(#card-edge);
 }
-
-/* Info card sits on the back face */
 .card--info {
   transform: rotateY(180deg);
 }
@@ -214,6 +213,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   visibility: hidden;
   opacity: 0;
   z-index: 10;
+  text-wrap: pretty;
 }
 .info a { color: #fff; }
 .info[aria-hidden="false"] {
