@@ -287,7 +287,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     top: 16px !important;
   }
   .info-toggle { left: 16px !important; }
-  .info-close  { right: 16px !important; }
+  .info-close  { right: 16px !important; position: fixed !important; }
 
   .home {
     height: 100dvh;
