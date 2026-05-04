@@ -325,6 +325,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
   /* Flip container — holds both cards, rotates in 3D */
   .cards__inner {
+    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
