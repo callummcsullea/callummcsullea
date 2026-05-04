@@ -33,7 +33,15 @@ function bindInfo() {
   });
 }
 
-// Tick at midnight so the date stays current on long-open tabs
+// Favicon swaps based on tab visibility
+function bindFavicon() {
+  const favicon = document.getElementById("favicon");
+  const active = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐣</text></svg>";
+  const inactive = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥚</text></svg>";
+  document.addEventListener("visibilitychange", () => {
+    favicon.href = document.hidden ? inactive : active;
+  });
+}
 function scheduleMidnightTick() {
   const now = new Date();
   const next = new Date(now);
@@ -58,5 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDate();
   bindInfo();
   bindCardFlip();
+  bindFavicon();
   scheduleMidnightTick();
 });
