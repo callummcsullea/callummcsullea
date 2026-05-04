@@ -104,7 +104,7 @@ function bindCardFlip() {
     if (absDx > 40 && absDx > absDy) {
       // Horizontal swipe — treat as flip
       inner._wasSwiped = true;
-      flip(dx < 0 ? "left" : "right");
+      flip(dx < 0 ? "right" : "left");
     }
     touchStartX = null;
     touchStartY = null;
