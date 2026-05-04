@@ -98,6 +98,10 @@ function bindCardFlip() {
     rotY += nx * 180;
     rotX -= ny * 180;
 
+    // Snap to nearest 180° so card always lands flat
+    rotY = Math.round(rotY / 180) * 180;
+    rotX = Math.round(rotX / 180) * 180;
+
     applyMobileTransform();
 
     const normY = ((rotY % 360) + 360) % 360;
