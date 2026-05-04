@@ -53,26 +53,32 @@ function scheduleMidnightTick() {
   }, ms);
 }
 
-// Mobile card tap — 3D X-axis flip (long edge), direction based on which half is tapped
-// Also handles short viewport (desktop) simple toggle
+// Mobile card tap — always rotates in same direction per side tapped
 function bindCardFlip() {
   const inner = document.querySelector(".cards__inner");
   if (!inner) return;
+
+  let rotationX = 0;
+
   inner.addEventListener("click", (e) => {
     const cards = document.querySelector(".cards");
-    const isFlipped = cards.classList.contains("cards--flipped-left") || cards.classList.contains("cards--flipped-right");
+    const rect = inner.getBoundingClientRect();
+    const midX = rect.left + rect.width / 2;
 
-    if (!isFlipped) {
-      const rect = inner.getBoundingClientRect();
-      const midX = rect.left + rect.width / 2;
-      if (e.clientX < midX) {
-        cards.classList.add("cards--flipped-left");
-      } else {
-        cards.classList.add("cards--flipped-right");
-      }
+    if (e.clientX < midX) {
+      rotationX += 180; // left tap — always same direction
     } else {
-      cards.classList.remove("cards--flipped-left");
-      cards.classList.remove("cards--flipped-right");
+      rotationX -= 180; // right tap — always opposite direction
+    }
+
+    // Apply to mobile 3D flip
+    inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
+
+    // Also toggle classes for short-viewport opacity fallback
+    const isFlipped = Math.abs(rotationX % 360) === 180;
+    cards.classList.remove("cards--flipped-left", "cards--flipped-right");
+    if (isFlipped) {
+      cards.classList.add(rotationX > 0 ? "cards--flipped-left" : "cards--flipped-right");
     }
   });
 }
