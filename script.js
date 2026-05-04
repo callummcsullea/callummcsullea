@@ -59,31 +59,37 @@ function bindCardFlip() {
   if (!inner) return;
 
   let rotationX = 0;
+  let rotationY = 0; // for short viewport desktop
   let touchStartX = null;
   let touchStartY = null;
 
   function flip(direction) {
-    // direction: 'left' or 'right'
     const cards = document.querySelector(".cards");
-    if (direction === "left") {
-      rotationX -= 180;
-    } else {
-      rotationX += 180;
-    }
-
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
     const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
 
-    if (isMobile) {
-      inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
-    } else if (isShortViewport) {
-      inner.style.transform = `rotateX(${rotationX}deg)`;
+    if (isShortViewport) {
+      // Always increment same direction — short edge flip (rotateY)
+      rotationY += 180;
+      inner.style.transform = `rotateY(${rotationY}deg)`;
+      const isFlipped = Math.abs(rotationY % 360) === 180;
+      cards.classList.remove("cards--flipped-left", "cards--flipped-right");
+      if (isFlipped) cards.classList.add("cards--flipped-right");
+      return;
     }
 
-    const isFlipped = Math.abs(rotationX % 360) === 180;
-    cards.classList.remove("cards--flipped-left", "cards--flipped-right");
-    if (isFlipped) {
-      cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
+    if (isMobile) {
+      if (direction === "left") {
+        rotationX -= 180;
+      } else {
+        rotationX += 180;
+      }
+      inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
+      const isFlipped = Math.abs(rotationX % 360) === 180;
+      cards.classList.remove("cards--flipped-left", "cards--flipped-right");
+      if (isFlipped) {
+        cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
+      }
     }
   }
 
