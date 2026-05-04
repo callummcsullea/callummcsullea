@@ -79,6 +79,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: var(--gap);
 }
 
+/* cards__inner is only a 3D container on mobile — transparent on desktop */
+.cards__inner {
+  display: contents;
+}
+
 /* ---------- Cards ---------- */
 .card {
   width: 340px;
@@ -251,6 +256,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
+  .cards__inner {
+    display: block;
+    position: relative;
+    width: 340px;
+    height: 227px;
+    pointer-events: auto;
+  }
+
   .card {
     position: absolute;
     top: 0;
@@ -259,10 +272,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
 
   .card--date  { opacity: 1; pointer-events: auto; }
-  .card--info  { opacity: 0; pointer-events: none; }
+  .card--info  { opacity: 0; pointer-events: none; transform: none; backface-visibility: visible; -webkit-backface-visibility: visible; }
 
-  .cards--flipped .card--date { opacity: 0; pointer-events: none; }
-  .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
+  .cards--flipped-left .card--date,
+  .cards--flipped-right .card--date { opacity: 0; pointer-events: none; }
+  .cards--flipped-left .card--info,
+  .cards--flipped-right .card--info { opacity: 1; pointer-events: auto; }
 }
 @media (max-width: 430px) and (orientation: portrait) {
   :root {
@@ -323,8 +338,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     cursor: pointer;
   }
 
-  .cards--flipped-left  .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(180deg); }
-  .cards--flipped-right .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(-180deg); }
+  .cards--flipped-left  .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateX(180deg); }
+  .cards--flipped-right .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateX(-180deg); }
 
   .card {
     position: absolute;
@@ -339,7 +354,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
 
   .card--info {
-    transform: rotateY(180deg);
+    transform: rotateX(180deg);
   }
 
   .card--info a {
