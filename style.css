@@ -305,16 +305,41 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 100vw;
     height: 100dvh;
     pointer-events: none;
+    perspective: 1000px;
   }
 
-  .card {
+  /* Flip container — holds both cards, rotates in 3D */
+  .cards__inner {
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 340px;
+    height: 227px;
+    transform-style: preserve-3d;
     transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px));
     transform-origin: center center;
-    transition: none;
+    transition: transform 0.5s ease;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .cards--flipped-left  .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(180deg); }
+  .cards--flipped-right .cards__inner { transform: translate(-50%, -50%) rotate(-90deg) scale(calc((100vw - 32px) / 227px)) rotateY(-180deg); }
+
+  .card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 340px;
+    height: 227px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     box-shadow: -1.5px 0px 0.75px rgba(0, 0, 0, 0.15);
+    transform: none;
+  }
+
+  .card--info {
+    transform: rotateY(180deg);
   }
 
   .card--info a {
@@ -322,9 +347,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     text-decoration: none;
   }
 
-  .card--date  { opacity: 1; pointer-events: auto; }
-  .card--info  { opacity: 0; pointer-events: none; }
-
-  .cards--flipped .card--date { opacity: 0; pointer-events: none; }
-  .cards--flipped .card--info { opacity: 1; pointer-events: auto; }
+  .card--date  { opacity: 1; }
+  .card--info  { opacity: 1; }
 }
