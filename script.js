@@ -69,12 +69,16 @@ function bindCardFlip() {
     const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
 
     if (isShortViewport) {
-      // Always increment same direction — short edge flip (rotateY)
-      rotationY += 180;
+      // Left/right half determines direction — short edge flip (rotateY)
+      if (direction === "left") {
+        rotationY -= 180;
+      } else {
+        rotationY += 180;
+      }
       inner.style.transform = `rotateY(${rotationY}deg)`;
       const isFlipped = Math.abs(rotationY % 360) === 180;
       cards.classList.remove("cards--flipped-left", "cards--flipped-right");
-      if (isFlipped) cards.classList.add("cards--flipped-right");
+      if (isFlipped) cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
       return;
     }
 
@@ -113,7 +117,9 @@ function bindCardFlip() {
       const isShortViewport = window.matchMedia("(max-height: 600px) and (min-width: 431px)").matches;
       if (!isShortViewport) return;
       if (inner._wasSwiped) { inner._wasSwiped = false; return; }
-      flip("right");
+      const rect = inner.getBoundingClientRect();
+      const midX = rect.left + rect.width / 2;
+      flip(e.clientX < midX ? "left" : "right");
     });
   }
   inner.addEventListener("touchstart", (e) => {
