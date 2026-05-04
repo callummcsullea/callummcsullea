@@ -237,7 +237,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-height: 650px) { :root { --big: 12vh; } }
 @media (max-height: 520px) { :root { --big: 9vh; } }
 
-/* ---------- Short viewport (non-mobile) — single card, toggle on click ---------- */
+/* ---------- Short viewport (non-mobile) — single card, 3D flip like mobile ---------- */
 @media (max-height: 600px) and (min-width: 431px) {
   .home {
     position: fixed;
@@ -253,31 +253,39 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 340px;
     height: 227px;
     pointer-events: none;
-    cursor: pointer;
+    perspective: 1000px;
   }
 
   .cards__inner {
     display: block;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 340px;
     height: 227px;
+    transform-style: preserve-3d;
+    transform: none;
+    transform-origin: center center;
+    transition: transform 0.5s ease;
     pointer-events: auto;
+    cursor: pointer;
   }
 
   .card {
     position: absolute;
     top: 0;
     left: 0;
-    transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: none;
   }
 
-  .card--date  { opacity: 1; pointer-events: auto; }
-  .card--info  { opacity: 0; pointer-events: none; transform: none; backface-visibility: visible; -webkit-backface-visibility: visible; }
+  .card--info {
+    transform: rotateX(180deg);
+  }
 
-  .cards--flipped-left .card--date,
-  .cards--flipped-right .card--date { opacity: 0; pointer-events: none; }
-  .cards--flipped-left .card--info,
-  .cards--flipped-right .card--info { opacity: 1; pointer-events: auto; }
+  .card--date  { opacity: 1; }
+  .card--info  { opacity: 1; }
 }
 @media (max-width: 430px) and (orientation: portrait) {
   :root {
