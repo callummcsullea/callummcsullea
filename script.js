@@ -97,23 +97,17 @@ function bindCardFlip() {
   inner.addEventListener("click", (e) => {
     if (inner._wasSwiped) { inner._wasSwiped = false; return; }
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
-    if (!isMobile) return; // desktop handled by home listener
+    if (!isMobile) {
+      // Desktop — left/right of card determines direction
+      const rect = inner.getBoundingClientRect();
+      const midX = rect.left + rect.width / 2;
+      flip(e.clientX < midX ? "left" : "right");
+      return;
+    }
     const rect = inner.getBoundingClientRect();
     const midY = rect.top + rect.height / 2;
     flip(e.clientY < midY ? "right" : "left");
   });
-
-  const home = document.querySelector(".home");
-  if (home) {
-    home.addEventListener("click", (e) => {
-      const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
-      if (isMobile) return;
-      if (inner._wasSwiped) { inner._wasSwiped = false; return; }
-      const rect = inner.getBoundingClientRect();
-      const midX = rect.left + rect.width / 2;
-      flip(e.clientX < midX ? "left" : "right");
-    });
-  }
 
   inner.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX;
