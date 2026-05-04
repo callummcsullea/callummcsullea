@@ -91,19 +91,14 @@ function bindCardFlip() {
     const dist = Math.sqrt(dx * dx + dy * dy);
     if (dist < 10) return;
 
-    // Normalise swipe vector
-    const nx = dx / dist;
-    const ny = dy / dist;
+    // Normalise swipe vector (account for -90deg card rotation: axes swapped)
+    const nx = dx / dist; // normalised horizontal
+    const ny = dy / dist; // normalised vertical
 
-    // Card is rotated -90deg so axes are swapped:
-    // swipe up/down (dy) → rotates on Y axis (long edge flip)
-    // swipe left/right (dx) → rotates on X axis (short edge flip)
-    rotY -= ny * 180;
-    rotX -= nx * 180;
-
-    // Snap to nearest 180° so card always lands flat
-    rotY = Math.round(rotY / 180) * 180;
-    rotX = Math.round(rotX / 180) * 180;
+    // Apply a full 180° flip — distributed by swipe angle
+    // Each axis gets 180° × its normalised component, then snap to 180° increments
+    rotY = Math.round((rotY - ny * 180) / 180) * 180;
+    rotX = Math.round((rotX - nx * 180) / 180) * 180;
 
     applyMobileTransform();
 
