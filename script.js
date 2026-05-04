@@ -53,12 +53,26 @@ function scheduleMidnightTick() {
   }, ms);
 }
 
-// Mobile card tap — toggle between date card and info card
+// Mobile card tap — 3D Y-axis flip, direction based on which half is tapped
 function bindCardFlip() {
-  const cards = document.querySelector(".cards");
-  if (!cards) return;
-  cards.addEventListener("click", (e) => {
-    cards.classList.toggle("cards--flipped");
+  const inner = document.querySelector(".cards__inner");
+  if (!inner) return;
+  inner.addEventListener("click", (e) => {
+    const rect = inner.getBoundingClientRect();
+    const midX = rect.left + rect.width / 2;
+    const cards = document.querySelector(".cards");
+    const isFlipped = cards.classList.contains("cards--flipped-left") || cards.classList.contains("cards--flipped-right");
+
+    if (!isFlipped) {
+      if (e.clientX < midX) {
+        cards.classList.add("cards--flipped-left");
+      } else {
+        cards.classList.add("cards--flipped-right");
+      }
+    } else {
+      cards.classList.remove("cards--flipped-left");
+      cards.classList.remove("cards--flipped-right");
+    }
   });
 }
 
