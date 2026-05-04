@@ -53,34 +53,62 @@ function scheduleMidnightTick() {
   }, ms);
 }
 
-// Mobile card tap — always rotates in same direction per side tapped
+// Mobile card tap + swipe — always rotates in same direction per side/direction
 function bindCardFlip() {
   const inner = document.querySelector(".cards__inner");
   if (!inner) return;
 
   let rotationX = 0;
+  let touchStartX = null;
+  let touchStartY = null;
 
-  inner.addEventListener("click", (e) => {
+  function flip(direction) {
+    // direction: 'left' or 'right'
     const cards = document.querySelector(".cards");
-    const rect = inner.getBoundingClientRect();
-    const midX = rect.left + rect.width / 2;
-
-    if (e.clientX < midX) {
-      rotationX += 180; // left tap — always same direction
+    if (direction === "left") {
+      rotationX -= 180;
     } else {
-      rotationX -= 180; // right tap — always opposite direction
+      rotationX += 180;
     }
 
-    // Apply to mobile 3D flip
     inner.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${(window.innerWidth - 32) / 227}) rotateX(${rotationX}deg)`;
 
-    // Also toggle classes for short-viewport opacity fallback
     const isFlipped = Math.abs(rotationX % 360) === 180;
     cards.classList.remove("cards--flipped-left", "cards--flipped-right");
     if (isFlipped) {
-      cards.classList.add(rotationX > 0 ? "cards--flipped-left" : "cards--flipped-right");
+      cards.classList.add(direction === "left" ? "cards--flipped-left" : "cards--flipped-right");
     }
+  }
+
+  // Tap
+  inner.addEventListener("click", (e) => {
+    if (inner._wasSwiped) { inner._wasSwiped = false; return; }
+    const rect = inner.getBoundingClientRect();
+    const midX = rect.left + rect.width / 2;
+    flip(e.clientX < midX ? "left" : "right");
   });
+
+  // Swipe
+  inner.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  inner.addEventListener("touchend", (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+
+    if (absDx > 40 && absDx > absDy) {
+      // Horizontal swipe — treat as flip
+      inner._wasSwiped = true;
+      flip(dx < 0 ? "left" : "right");
+    }
+    touchStartX = null;
+    touchStartY = null;
+  }, { passive: true });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
