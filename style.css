@@ -7,14 +7,14 @@
 
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  --track: 0.12em;
+  --track: 0.08em;
   --pad: 16px;
 
   --big: 18vh;
   --gap: 56.75px;
 
   --text-size: 14.667px;
-  --text-leading: calc(32 / 26);
+  --text-leading: calc(26 / 20);
 }
 
 /* ---------- Reset ---------- */
@@ -191,19 +191,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* Copyright on info page — flows naturally, full white */
 .info .copyright {
-  color: var(--ink);
+  color: #fff;
   display: block;
-  position: sticky;
-  bottom: calc(var(--pad) * 0.75);
-  margin-top: calc(var(--text-leading) * 1em);
+  padding: calc(var(--pad) * 0.75) 0;
+  margin-top: auto;
 }
 
 /* ---------- Information overlay ---------- */
 .info {
   position: fixed;
   inset: 0;
-  background: #fff;
-  color: var(--ink);
+  background: #000;
+  color: #fff;
   font-family: var(--sans);
   font-weight: 400;
   font-size: var(--text-size);
@@ -215,8 +214,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   opacity: 0;
   z-index: 10;
   text-wrap: pretty;
+  display: flex;
+  flex-direction: column;
 }
-.info a { color: var(--ink); }
+.info a { color: #fff; }
 .info[aria-hidden="false"] {
   visibility: visible;
   opacity: 1;
@@ -231,11 +232,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: var(--text-size);
   line-height: var(--text-leading);
   letter-spacing: var(--track);
-  color: var(--ink);
+  color: #fff;
 }
 
 .info__inner {
   max-width: 65ch;
+  flex: 1;
 }
 
 .info__lede { margin: 0 0 calc(var(--text-leading) * 1em); }
