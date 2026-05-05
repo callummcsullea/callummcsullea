@@ -192,7 +192,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* Copyright on info page — flows naturally, full white */
 .info .copyright {
   color: var(--ink);
-  margin: calc(var(--text-leading) * 1em) 0 0;
+  display: block;
+  position: sticky;
+  bottom: calc(var(--pad) * 0.75);
+  margin-top: calc(var(--text-leading) * 1em);
 }
 
 /* ---------- Information overlay ---------- */
