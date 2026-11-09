@@ -4,6 +4,7 @@
   --card: #ececeb;
   --ink: #111;
   --coral: #e87461;
+  --card-ink: #000; /* text printed on the business card */
 
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -126,12 +127,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   letter-spacing: 0.12em;
   word-spacing: 0.15em;
   line-height: 1;
-  color: #ef5831;
+  color: var(--card-ink);
   white-space: nowrap;
   mix-blend-mode: multiply;
 
-  text-shadow: 0 0 1px #ef5831;
-  -webkit-text-stroke: 0.08px #ef5831;
+  text-shadow: 0 0 1px var(--card-ink);
+  -webkit-text-stroke: 0.08px var(--card-ink);
   filter: url(#ink-bleed-lg);
 }
 
@@ -149,11 +150,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 14.667px;
   letter-spacing: 0.12em;
   line-height: calc(18.5 / 11);
-  color: #ef5831;
+  color: var(--card-ink);
   mix-blend-mode: multiply;
 
-  text-shadow: 0 0 0.9px #ef5831;
-  -webkit-text-stroke: 0.06px #ef5831;
+  text-shadow: 0 0 0.9px var(--card-ink);
+  -webkit-text-stroke: 0.06px var(--card-ink);
   filter: url(#ink-bleed);
 }
 .card__header {
