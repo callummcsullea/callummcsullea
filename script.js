@@ -88,25 +88,28 @@ function bindCardFlip() {
     }
   }
 
-  function freeRotate(dx, dy) {
+  // Flip the card 180° along ONE axis only.
+  // axis "y" = swipe up/down, axis "x" = swipe left/right; sign = swipe direction.
+  function axisRotate(axis, sign) {
     const cards = document.querySelector(".cards");
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 10) return;
 
-    // Normalise swipe vector (account for -90deg card rotation: axes swapped)
-    const nx = dx / dist; // normalised horizontal
-    const ny = dy / dist; // normalised vertical
-
-    // Apply a full 180° flip — distributed by swipe angle
-    // Each axis gets 180° × its normalised component, then snap to 180° increments
-    rotY = Math.round((rotY - ny * 180) / 180) * 180;
-    rotX = Math.round((rotX - nx * 180) / 180) * 180;
+    if (axis === "y") {
+      // rotateY is the outer rotation, so it always turns in screen space.
+      rotY -= sign * 180;
+    } else {
+      // rotateX sits inside rotateY. After an odd number of up/down flips the
+      // card's X axis points the other way, so reverse the step to keep the
+      // card turning in the direction of the finger.
+      const yFlipped = (((rotY / 180) % 2) + 2) % 2 === 1;
+      rotX -= (yFlipped ? -sign : sign) * 180;
+    }
 
     applyMobileTransform();
 
     const normY = ((rotY % 360) + 360) % 360;
     const normX = ((rotX % 360) + 360) % 360;
-    const isFlipped = (normY > 90 && normY < 270) || (normX > 90 && normX < 270);
+    // Back face shows when exactly one axis is flipped
+    const isFlipped = (normY === 180) !== (normX === 180);
     cards.classList.remove("cards--flipped-left", "cards--flipped-right");
     if (isFlipped) cards.classList.add("cards--flipped-right");
   }
@@ -127,37 +130,64 @@ function bindCardFlip() {
     flip(e.clientY < midY ? "right" : "left");
   });
 
+  // Distance (px) a finger must move before the swipe locks to one axis
+  const LOCK_THRESHOLD = 10;
+  let lockedAxis = null; // null until locked, then "x" (left/right) or "y" (up/down)
+
+  function resetTouch() {
+    touchStartX = null;
+    touchStartY = null;
+    lockedAxis = null;
+  }
+
+  // Decide the axis once, from the dominant direction of the first movement
+  function lockAxis(dx, dy) {
+    if (lockedAxis) return;
+    if (Math.abs(dx) < LOCK_THRESHOLD && Math.abs(dy) < LOCK_THRESHOLD) return;
+    lockedAxis = Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
+  }
+
   inner.addEventListener("touchstart", (e) => {
+    if (e.touches.length > 1) return;
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+    lockedAxis = null;
     e.preventDefault();
   }, { passive: false });
+
+  inner.addEventListener("touchmove", (e) => {
+    if (touchStartX === null) return;
+    lockAxis(e.touches[0].clientX - touchStartX, e.touches[0].clientY - touchStartY);
+  }, { passive: true });
+
+  inner.addEventListener("touchcancel", resetTouch, { passive: true });
 
   inner.addEventListener("touchend", (e) => {
     if (touchStartX === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
-    const absDx = Math.abs(dx);
-    const absDy = Math.abs(dy);
+    // Fast flicks may end before any touchmove fired — lock from the end point
+    lockAxis(dx, dy);
+    // Only the locked axis counts; the other one is ignored entirely
+    const along = lockedAxis === "x" ? dx : lockedAxis === "y" ? dy : 0;
     const isMobile = window.matchMedia("(max-width: 430px) and (orientation: portrait)").matches;
 
     if (isMobile) {
-      if (absDx > 10 || absDy > 10) {
-        // Any swipe — free rotate based on vector
-        freeRotate(dx, dy);
+      if (lockedAxis) {
+        // Swipe — clean 180° flip along the locked axis only
+        if (Math.abs(along) >= LOCK_THRESHOLD) axisRotate(lockedAxis, Math.sign(along));
       } else {
-        // Tap — snap 180° on Y axis based on top/bottom
+        // Tap — flip up/down based on top/bottom half
         const rect = inner.getBoundingClientRect();
         const midY = rect.top + rect.height / 2;
-        freeRotate(0, e.changedTouches[0].clientY < midY ? -180 : 180);
+        axisRotate("y", e.changedTouches[0].clientY < midY ? -1 : 1);
       }
     } else {
-      if (absDx > 40 && absDx > absDy) {
+      if (lockedAxis === "x" && Math.abs(dx) > 40) {
         flip(dx < 0 ? "right" : "left");
       }
     }
-    touchStartX = null;
-    touchStartY = null;
+    resetTouch();
   }, { passive: true });
 }
 
